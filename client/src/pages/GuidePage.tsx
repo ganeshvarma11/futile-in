@@ -1,4 +1,10 @@
-import { ArrowLeft, ArrowUpRight, Search } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  ChevronDown,
+  Search,
+  SlidersHorizontal,
+} from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import HelpfulVote from "@/components/HelpfulVote";
 import ShareButton from "@/components/ShareButton";
@@ -24,6 +30,8 @@ export default function GuidePage({ slug }: GuidePageProps) {
   const [selectedLanguage, setSelectedLanguage] = useState(guide.facetAllLabel);
   const [selectedAccess, setSelectedAccess] = useState("All access");
   const [sortBy, setSortBy] = useState("Most popular");
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+  const [isMobileGroupsOpen, setIsMobileGroupsOpen] = useState(false);
   const guideShareUrl =
     typeof window === "undefined"
       ? `/guides/${guide.slug}`
@@ -35,6 +43,8 @@ export default function GuidePage({ slug }: GuidePageProps) {
     setSelectedLanguage(guide.facetAllLabel);
     setSelectedAccess("All access");
     setSortBy("Most popular");
+    setIsMobileFiltersOpen(false);
+    setIsMobileGroupsOpen(false);
   }, [guide]);
 
   const totalResourceCount = useMemo(
@@ -120,6 +130,14 @@ export default function GuidePage({ slug }: GuidePageProps) {
     return <NotFound />;
   }
 
+  const activeFilterCount =
+    (searchQuery.trim() ? 1 : 0) +
+    (selectedLanguage !== guide.facetAllLabel ? 1 : 0) +
+    (selectedAccess !== "All access" ? 1 : 0) +
+    (sortBy !== "Most popular" ? 1 : 0);
+  const accessOptions = ["All access", "Free", "Freemium", "Paid"] as const;
+  const sortOptions = ["Most popular", "A-Z", "Z-A"] as const;
+
   return (
     <div className="dsa-dashboard-page">
       <div className="site-container py-6 sm:py-8">
@@ -128,7 +146,7 @@ export default function GuidePage({ slug }: GuidePageProps) {
             <ArrowLeft size={15} />
             Back
           </Link>
-          <div className="flex flex-wrap items-center justify-end gap-2">
+          <div className="dashboard-topbar-actions">
             <span className="dashboard-pill">{category?.name ?? "Guide"}</span>
             <ShareButton
               title={guide.title}
@@ -142,13 +160,70 @@ export default function GuidePage({ slug }: GuidePageProps) {
 
         <div className="dashboard-layout">
           <aside className="dashboard-sidebar">
-            <div className="dashboard-panel">
-              <div className="space-y-2">
-                <p className="dashboard-eyebrow">Category</p>
-                <h1 className="text-2xl font-semibold tracking-[-0.04em] text-white">
-                  {guide.title}
-                </h1>
+            <div className="dashboard-panel dashboard-summary-panel">
+              <div className="dashboard-summary-top">
+                <div className="space-y-2">
+                  <p className="dashboard-eyebrow">Category</p>
+                  <h1 className="text-2xl font-semibold tracking-[-0.04em] text-white">
+                    {guide.title}
+                  </h1>
+                </div>
+
+                <div className="dashboard-mobile-group-bar">
+                  <div className="dashboard-mobile-group-picker">
+                    <button
+                      type="button"
+                      className="dashboard-mobile-group-trigger"
+                      onClick={() => setIsMobileGroupsOpen(open => !open)}
+                      aria-expanded={isMobileGroupsOpen}
+                      aria-controls="guide-mobile-group-list"
+                    >
+                      <SlidersHorizontal size={13} />
+                      <span className="dashboard-mobile-group-trigger-text">
+                        Sections
+                      </span>
+                      <ChevronDown
+                        size={15}
+                        className={`dashboard-mobile-group-chevron ${
+                          isMobileGroupsOpen
+                            ? "dashboard-mobile-group-chevron-open"
+                            : ""
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
+
+              {isMobileGroupsOpen ? (
+                <div
+                  id="guide-mobile-group-list"
+                  className="dashboard-mobile-group-list"
+                >
+                  {guide.groups.map(group => (
+                    <button
+                      key={group.id}
+                      type="button"
+                      onClick={() => {
+                        setActiveGroupId(group.id);
+                        setIsMobileGroupsOpen(false);
+                      }}
+                      className={`dashboard-mobile-group-chip ${
+                        group.id === activeGroup.id
+                          ? "dashboard-mobile-group-chip-active"
+                          : ""
+                      }`}
+                    >
+                      <span className="dashboard-mobile-group-chip-text">
+                        {group.title}
+                      </span>
+                      <span className="dashboard-mobile-group-chip-count">
+                        {group.items.length}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              ) : null}
 
               <div className="dashboard-sidebar-list">
                 {guide.groups.map(group => (
@@ -201,7 +276,163 @@ export default function GuidePage({ slug }: GuidePageProps) {
             <div className="dashboard-panel">
               <div className="dashboard-main-header">
                 <div>
-                  <p className="dashboard-eyebrow">{activeGroup.title}</p>
+                  <div className="dashboard-main-header-top">
+                    <p className="dashboard-eyebrow">{activeGroup.title}</p>
+                    <div className="dashboard-mobile-toolbar-popover">
+                      <button
+                        type="button"
+                        className="dashboard-mobile-toolbar-toggle dashboard-main-header-filter-toggle"
+                        onClick={() => setIsMobileFiltersOpen(open => !open)}
+                        aria-expanded={isMobileFiltersOpen}
+                        aria-controls="guide-mobile-filters"
+                      >
+                        <span className="dashboard-mobile-toolbar-toggle-main">
+                          <SlidersHorizontal size={15} />
+                          <span>Filters</span>
+                        </span>
+                        <span className="dashboard-mobile-toolbar-toggle-meta">
+                          {activeFilterCount > 0 ? (
+                            <span className="dashboard-mobile-toolbar-count">
+                              {activeFilterCount}
+                            </span>
+                          ) : null}
+                          <ChevronDown
+                            size={16}
+                            className={`dashboard-mobile-toolbar-chevron ${
+                              isMobileFiltersOpen
+                                ? "dashboard-mobile-toolbar-chevron-open"
+                                : ""
+                            }`}
+                          />
+                        </span>
+                      </button>
+
+                      <div
+                        id="guide-mobile-filters"
+                        className={`dashboard-toolbar ${
+                          isMobileFiltersOpen ? "dashboard-toolbar-open" : ""
+                        }`}
+                      >
+                        <label className="dashboard-search">
+                          <Search size={15} />
+                          <input
+                            value={searchQuery}
+                            onChange={event => setSearchQuery(event.target.value)}
+                            placeholder="Search resources"
+                            aria-label="Search resources"
+                          />
+                        </label>
+
+                        <label className="dashboard-filter">
+                          <span>{guide.facetLabel}</span>
+                          <select
+                            value={selectedLanguage}
+                            onChange={event => setSelectedLanguage(event.target.value)}
+                            aria-label={`Filter by ${guide.facetLabel.toLowerCase()}`}
+                          >
+                            {languageOptions.map(option => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+
+                        <label className="dashboard-filter">
+                          <span>Access</span>
+                          <select
+                            value={selectedAccess}
+                            onChange={event => setSelectedAccess(event.target.value)}
+                            aria-label="Filter by access"
+                          >
+                            <option value="All access">All access</option>
+                            <option value="Free">Free</option>
+                            <option value="Freemium">Freemium</option>
+                            <option value="Paid">Paid</option>
+                          </select>
+                        </label>
+
+                        <label className="dashboard-filter">
+                          <span>Sort</span>
+                          <select
+                            value={sortBy}
+                            onChange={event => setSortBy(event.target.value)}
+                            aria-label="Sort resources"
+                          >
+                            <option value="Most popular">Most popular</option>
+                            <option value="A-Z">A-Z</option>
+                            <option value="Z-A">Z-A</option>
+                          </select>
+                        </label>
+
+                        <div className="dashboard-mobile-filter-groups">
+                          <div className="dashboard-mobile-filter-group">
+                            <p className="dashboard-mobile-filter-title">
+                              {guide.facetLabel}
+                            </p>
+                            <div className="dashboard-mobile-filter-options">
+                              {languageOptions.map(option => (
+                                <button
+                                  key={option}
+                                  type="button"
+                                  onClick={() => setSelectedLanguage(option)}
+                                  className={`dashboard-mobile-filter-option ${
+                                    selectedLanguage === option
+                                      ? "dashboard-mobile-filter-option-active"
+                                      : ""
+                                  }`}
+                                >
+                                  {option}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="dashboard-mobile-filter-group">
+                            <p className="dashboard-mobile-filter-title">
+                              Access
+                            </p>
+                            <div className="dashboard-mobile-filter-options">
+                              {accessOptions.map(option => (
+                                <button
+                                  key={option}
+                                  type="button"
+                                  onClick={() => setSelectedAccess(option)}
+                                  className={`dashboard-mobile-filter-option ${
+                                    selectedAccess === option
+                                      ? "dashboard-mobile-filter-option-active"
+                                      : ""
+                                  }`}
+                                >
+                                  {option}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="dashboard-mobile-filter-group">
+                            <p className="dashboard-mobile-filter-title">Sort</p>
+                            <div className="dashboard-mobile-filter-options">
+                              {sortOptions.map(option => (
+                                <button
+                                  key={option}
+                                  type="button"
+                                  onClick={() => setSortBy(option)}
+                                  className={`dashboard-mobile-filter-option ${
+                                    sortBy === option
+                                      ? "dashboard-mobile-filter-option-active"
+                                      : ""
+                                  }`}
+                                >
+                                  {option}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-white">
                     {activeGroup.description}
                   </h2>
@@ -209,60 +440,6 @@ export default function GuidePage({ slug }: GuidePageProps) {
                 <div className="dashboard-pill">
                   {filteredItems.length} resources
                 </div>
-              </div>
-
-              <div className="dashboard-toolbar">
-                <label className="dashboard-search">
-                  <Search size={15} />
-                  <input
-                    value={searchQuery}
-                    onChange={event => setSearchQuery(event.target.value)}
-                    placeholder="Search resources"
-                    aria-label="Search resources"
-                  />
-                </label>
-
-                <label className="dashboard-filter">
-                  <span>{guide.facetLabel}</span>
-                  <select
-                    value={selectedLanguage}
-                    onChange={event => setSelectedLanguage(event.target.value)}
-                    aria-label={`Filter by ${guide.facetLabel.toLowerCase()}`}
-                  >
-                    {languageOptions.map(option => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-
-                <label className="dashboard-filter">
-                  <span>Access</span>
-                  <select
-                    value={selectedAccess}
-                    onChange={event => setSelectedAccess(event.target.value)}
-                    aria-label="Filter by access"
-                  >
-                    <option value="All access">All access</option>
-                    <option value="Free">Free</option>
-                    <option value="Freemium">Freemium</option>
-                    <option value="Paid">Paid</option>
-                  </select>
-                </label>
-
-                <label className="dashboard-filter">
-                  <span>Sort</span>
-                  <select
-                    value={sortBy}
-                    onChange={event => setSortBy(event.target.value)}
-                    aria-label="Sort resources"
-                  >
-                    <option value="Most popular">Most popular</option>
-                    <option value="A-Z">A-Z</option>
-                    <option value="Z-A">Z-A</option>
-                  </select>
-                </label>
               </div>
 
               <div className="resource-table">
@@ -279,21 +456,27 @@ export default function GuidePage({ slug }: GuidePageProps) {
                     const showProvider =
                       !["YouTube", "GitHub"].includes(item.provider) &&
                       item.provider !== item.kind;
+                    const itemNumber = String(index + 1).padStart(2, "0");
 
                     return (
                       <article key={item.id} className="resource-table-row">
                         <div className="resource-cell resource-cell-index">
-                          {String(index + 1).padStart(2, "0")}
+                          {itemNumber}
                         </div>
                         <div className="resource-cell resource-cell-main">
                           <div className="resource-main-line">
-                            <div className="resource-identity">
-                              <h3 className="resource-title">{item.title}</h3>
-                              {showProvider ? (
-                                <p className="resource-provider">
-                                  {item.provider}
-                                </p>
-                              ) : null}
+                            <div className="resource-mobile-header">
+                              <span className="resource-mobile-index">
+                                {itemNumber}
+                              </span>
+                              <div className="resource-identity">
+                                <h3 className="resource-title">{item.title}</h3>
+                                {showProvider ? (
+                                  <p className="resource-provider">
+                                    {item.provider}
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
                             <div className="resource-badge-row">
                               <span className="dashboard-badge">
@@ -319,29 +502,31 @@ export default function GuidePage({ slug }: GuidePageProps) {
                             <p className="resource-note">{item.note}</p>
                           </div>
                         </div>
-                        <div className="resource-cell resource-cell-stars">
-                          <HelpfulVote
-                            voteKey={`${guide.slug}:${item.id}`}
-                            baseCount={item.baseHelpfulCount}
-                          />
-                        </div>
-                        <div className="resource-cell resource-cell-share">
-                          <ShareButton
-                            title={`${item.title} • ${guide.title}`}
-                            url={item.url}
-                            text={item.note}
-                          />
-                        </div>
-                        <div className="resource-cell resource-cell-link">
-                          <a
-                            href={item.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="dashboard-text-link"
-                          >
-                            Link
-                            <ArrowUpRight size={15} />
-                          </a>
+                        <div className="resource-actions-row">
+                          <div className="resource-cell resource-cell-stars">
+                            <HelpfulVote
+                              voteKey={`${guide.slug}:${item.id}`}
+                              baseCount={item.baseHelpfulCount}
+                            />
+                          </div>
+                          <div className="resource-cell resource-cell-share">
+                            <ShareButton
+                              title={`${item.title} • ${guide.title}`}
+                              url={item.url}
+                              text={item.note}
+                            />
+                          </div>
+                          <div className="resource-cell resource-cell-link">
+                            <a
+                              href={item.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="dashboard-text-link"
+                            >
+                              Link
+                              <ArrowUpRight size={15} />
+                            </a>
+                          </div>
                         </div>
                       </article>
                     );
@@ -352,6 +537,16 @@ export default function GuidePage({ slug }: GuidePageProps) {
                       No matching resources for this filter yet.
                     </div>
                   ) : null}
+
+                  <SuggestResourceDialog
+                    guideTitle={guide.title}
+                    groupOptions={guide.groups.map(group => ({
+                      id: group.id,
+                      title: group.title,
+                    }))}
+                    initialSectionId={activeGroup.id}
+                    triggerClassName="dashboard-suggest-trigger-inline"
+                  />
                 </div>
               </div>
             </div>

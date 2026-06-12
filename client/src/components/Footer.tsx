@@ -31,9 +31,9 @@ export default function Footer() {
           <div>
             <p className="footer-label">Principles</p>
             <div className="mt-4 space-y-2 text-sm leading-7 text-[var(--muted-foreground)]">
-              <p>No signups</p>
-              <p>No fake productivity features</p>
-              <p>No content dump</p>
+              <p>Open access. No sign-up walls.</p>
+              <p>Useful guidance, not productivity theater.</p>
+              <p>Curated learning, not a content dump.</p>
             </div>
           </div>
         </div>

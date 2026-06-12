@@ -249,7 +249,7 @@ export default function Home() {
               key={category.slug}
               className="category-card home-category-card"
             >
-              <div className="home-category-card-top">
+              <div className="home-category-card-head">
                 <h3 className="text-xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
                   {category.name}
                 </h3>
@@ -266,13 +266,13 @@ export default function Home() {
                 />
               </div>
 
-              <p className="text-sm leading-7 text-[var(--muted-foreground)]">
+              <p className="home-category-card-description text-sm leading-7 text-[var(--muted-foreground)]">
                 {category.homeDescription}
               </p>
 
               <div className="category-card-footer">
                 <Link href={category.href} className="category-card-button">
-                  View
+                  View guide
                 </Link>
               </div>
             </article>

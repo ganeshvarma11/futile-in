@@ -86,11 +86,10 @@ export default function Categories() {
         <p className="eyebrow">Categories</p>
         <h1 className="categories-title">Browse guides by category.</h1>
         <p className="categories-description">
-          Simple list. Open what you need.
+          Open a category guide.
         </p>
         <p className="categories-meta">
-          {totalLiveCategories} live categories • {totalGuides} guides •{" "}
-          {totalResources} links
+          {totalLiveCategories} live categories • {totalResources} links
         </p>
       </section>
 
@@ -131,7 +130,7 @@ export default function Categories() {
       <section className="categories-list">
         {filteredCategories.map((category) => (
           <article key={category.slug} className="categories-list-row">
-            <div className="categories-list-main">
+            <div className="categories-list-header">
               <div className="categories-list-top">
                 <h2 className="categories-list-title">{category.name}</h2>
                 <span
@@ -143,21 +142,10 @@ export default function Categories() {
                 </span>
               </div>
 
-              <p className="categories-list-description">
-                {category.description}
-              </p>
-
-              <p className="categories-list-submeta">
-                {category.guideCount} guides • {category.resourceCount} links
-                {category.primaryGuide ? ` • ${category.primaryGuide.title}` : ""}
-              </p>
-            </div>
-
-            <div className="categories-list-action">
               {category.primaryGuide ? (
                 <Link
                   href={`/guides/${category.primaryGuide.slug}`}
-                  className="category-card-button"
+                  className="category-card-button categories-list-open"
                 >
                   Open
                 </Link>
@@ -165,6 +153,12 @@ export default function Categories() {
                 <span className="categories-list-soon">Soon</span>
               )}
             </div>
+
+            <p className="categories-list-description">{category.description}</p>
+
+            <p className="categories-list-submeta">
+              {category.resourceCount} links
+            </p>
           </article>
         ))}
 

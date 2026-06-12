@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 type SuggestResourceDialogProps = {
   guideTitle: string;
   groupOptions: Array<{ id: string; title: string }>;
+  initialSectionId?: string;
+  triggerClassName?: string;
 };
 
 type SuggestionFormState = {
@@ -26,12 +28,18 @@ const emptyState = (sectionId: string): SuggestionFormState => ({
 export default function SuggestResourceDialog({
   guideTitle,
   groupOptions,
+  initialSectionId,
+  triggerClassName = "",
 }: SuggestResourceDialogProps) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "copied" | "shared">("idle");
   const [form, setForm] = useState<SuggestionFormState>(
-    emptyState(groupOptions[0]?.id ?? ""),
+    emptyState(initialSectionId ?? groupOptions[0]?.id ?? ""),
   );
+
+  useEffect(() => {
+    setForm(emptyState(initialSectionId ?? groupOptions[0]?.id ?? ""));
+  }, [groupOptions, initialSectionId]);
 
   useEffect(() => {
     if (!open) return;
@@ -78,7 +86,7 @@ export default function SuggestResourceDialog({
   const resetAndClose = () => {
     setOpen(false);
     setStatus("idle");
-    setForm(emptyState(groupOptions[0]?.id ?? ""));
+    setForm(emptyState(initialSectionId ?? groupOptions[0]?.id ?? ""));
   };
 
   const handleCopy = async () => {
@@ -114,7 +122,7 @@ export default function SuggestResourceDialog({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="dashboard-suggest-trigger"
+        className={`dashboard-suggest-trigger ${triggerClassName}`.trim()}
       >
         Suggest a resource
       </button>

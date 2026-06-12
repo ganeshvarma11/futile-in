@@ -13,8 +13,8 @@ export default function Privacy() {
   ];
 
   return (
-    <div className="site-container py-16 sm:py-20">
-      <section className="max-w-3xl space-y-5">
+    <div className="site-container info-page py-16 sm:py-20">
+      <section className="info-hero max-w-3xl space-y-5">
         <p className="eyebrow">Privacy</p>
         <h1 className="text-4xl font-semibold tracking-[-0.04em] text-[var(--foreground)] sm:text-5xl">
           Privacy, in plain language.
@@ -28,8 +28,8 @@ export default function Privacy() {
         </p>
       </section>
 
-      <section className="mt-12 grid gap-6 lg:grid-cols-2">
-        <div className="card space-y-5 p-7 sm:p-8">
+      <section className="info-grid mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="card info-card space-y-5 p-7 sm:p-8">
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
             What stays in your browser
           </h2>
@@ -42,7 +42,7 @@ export default function Privacy() {
           </div>
         </div>
 
-        <div className="card space-y-5 p-7 sm:p-8">
+        <div className="card info-card space-y-5 p-7 sm:p-8">
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
             What may involve the server
           </h2>
@@ -56,8 +56,8 @@ export default function Privacy() {
         </div>
       </section>
 
-      <section className="mt-6 grid gap-6 lg:grid-cols-2">
-        <div className="card space-y-5 p-7 sm:p-8">
+      <section className="info-grid mt-6 grid gap-6 lg:grid-cols-2">
+        <div className="card info-card space-y-5 p-7 sm:p-8">
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
             Analytics and third parties
           </h2>
@@ -73,7 +73,7 @@ export default function Privacy() {
           </p>
         </div>
 
-        <div className="card space-y-5 p-7 sm:p-8">
+        <div className="card info-card space-y-5 p-7 sm:p-8">
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
             Policy updates
           </h2>

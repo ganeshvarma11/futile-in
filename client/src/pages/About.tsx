@@ -16,8 +16,8 @@ export default function About() {
   ];
 
   return (
-    <div className="site-container py-16 sm:py-20">
-      <section className="max-w-3xl space-y-5">
+    <div className="site-container info-page py-16 sm:py-20">
+      <section className="info-hero max-w-3xl space-y-5">
         <p className="eyebrow">About</p>
         <h1 className="text-4xl font-semibold tracking-[-0.04em] text-[var(--foreground)] sm:text-5xl">
           What futile is trying to do.
@@ -30,8 +30,8 @@ export default function About() {
         </p>
       </section>
 
-      <section className="mt-12 grid gap-6 lg:grid-cols-2">
-        <div className="card space-y-5 p-7 sm:p-8">
+      <section className="info-grid mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="card info-card space-y-5 p-7 sm:p-8">
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
             What we optimize for
           </h2>
@@ -44,7 +44,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="card space-y-5 p-7 sm:p-8">
+        <div className="card info-card space-y-5 p-7 sm:p-8">
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
             What this is not
           </h2>
@@ -58,7 +58,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="mt-6 card p-7 sm:p-8">
+      <section className="info-card mt-6 card p-7 sm:p-8">
         <div className="max-w-4xl space-y-5">
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
             How to use the site

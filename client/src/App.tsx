@@ -4,9 +4,9 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import Layout from "./components/Layout";
 import About from "./pages/About";
 import Categories from "./pages/Categories";
+import Channels from "./pages/Channels";
 import GuidePage from "./pages/GuidePage";
 import Home from "./pages/Home";
-import Method from "./pages/Method";
 import Privacy from "./pages/Privacy";
 
 function Router() {
@@ -15,7 +15,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/categories" component={Categories} />
-      <Route path="/method" component={Method} />
+      <Route path="/channels" component={Channels} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/guides/:slug">
         {(params) => <GuidePage slug={params.slug} />}

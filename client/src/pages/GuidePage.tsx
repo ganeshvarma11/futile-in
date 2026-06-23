@@ -139,418 +139,442 @@ export default function GuidePage({ slug }: GuidePageProps) {
   const sortOptions = ["Most popular", "A-Z", "Z-A"] as const;
 
   return (
-    <div className="dsa-dashboard-page">
-      <div className="site-container py-6 sm:py-8">
-        <div className="dashboard-topbar">
-          <Link href="/" className="dashboard-backlink">
-            <ArrowLeft size={15} />
-            Back
-          </Link>
-          <div className="dashboard-topbar-actions">
-            <span className="dashboard-pill">{category?.name ?? "Guide"}</span>
-            <ShareButton
-              title={guide.title}
-              url={guideShareUrl}
-              text={guide.summary}
-              idleLabel="Share resource"
-              className="dashboard-share-button-page"
-            />
+    <div className="dsa-dashboard-page guide-page">
+      <div className="site-container py-8 sm:py-10">
+        <div className="page-frame guide-page-frame">
+          <div className="dashboard-topbar">
+            <Link href="/" className="dashboard-backlink">
+              <ArrowLeft size={15} />
+              Back
+            </Link>
+            <div className="dashboard-topbar-actions">
+              <span className="dashboard-pill">{category?.name ?? "Guide"}</span>
+              <ShareButton
+                title={guide.title}
+                url={guideShareUrl}
+                text={guide.summary}
+                idleLabel="Share resource"
+                className="dashboard-share-button-page"
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="dashboard-layout">
-          <aside className="dashboard-sidebar">
-            <div className="dashboard-panel dashboard-summary-panel">
-              <div className="dashboard-summary-top">
-                <div className="space-y-2">
-                  <p className="dashboard-eyebrow">Category</p>
-                  <h1 className="text-2xl font-semibold tracking-[-0.04em] text-white">
-                    {guide.title}
-                  </h1>
-                </div>
+          <div className="guide-page-intro">
+            <div className="guide-page-intro-copy">
+              <p className="eyebrow">Guide</p>
+              <h1 className="guide-page-title">{guide.title}</h1>
+              <p className="guide-page-summary">{guide.summary}</p>
+            </div>
+            <div className="guide-page-intro-meta">
+              <div className="guide-page-meta-card">
+                <span className="guide-page-meta-label">Best place to start</span>
+                <p>{guide.bestPlaceToStart}</p>
+              </div>
+              <div className="guide-page-meta-card">
+                <span className="guide-page-meta-label">Who this is for</span>
+                <p>{guide.forWho}</p>
+              </div>
+            </div>
+          </div>
 
-                <div className="dashboard-mobile-group-bar">
-                  <div className="dashboard-mobile-group-picker">
-                    <button
-                      type="button"
-                      className="dashboard-mobile-group-trigger"
-                      onClick={() => setIsMobileGroupsOpen(open => !open)}
-                      aria-expanded={isMobileGroupsOpen}
-                      aria-controls="guide-mobile-group-list"
-                    >
-                      <SlidersHorizontal size={13} />
-                      <span className="dashboard-mobile-group-trigger-text">
-                        Sections
-                      </span>
-                      <ChevronDown
-                        size={15}
-                        className={`dashboard-mobile-group-chevron ${
-                          isMobileGroupsOpen
-                            ? "dashboard-mobile-group-chevron-open"
-                            : ""
-                        }`}
-                      />
-                    </button>
+          <div className="dashboard-layout">
+            <aside className="dashboard-sidebar">
+              <div className="dashboard-panel dashboard-summary-panel">
+                <div className="dashboard-summary-top">
+                  <div className="space-y-2">
+                    <p className="dashboard-eyebrow">Sections</p>
+                    <h2 className="guide-sidebar-title">{guide.title}</h2>
+                  </div>
+
+                  <div className="dashboard-mobile-group-bar">
+                    <div className="dashboard-mobile-group-picker">
+                      <button
+                        type="button"
+                        className="dashboard-mobile-group-trigger"
+                        onClick={() => setIsMobileGroupsOpen(open => !open)}
+                        aria-expanded={isMobileGroupsOpen}
+                        aria-controls="guide-mobile-group-list"
+                      >
+                        <SlidersHorizontal size={13} />
+                        <span className="dashboard-mobile-group-trigger-text">
+                          Sections
+                        </span>
+                        <ChevronDown
+                          size={15}
+                          className={`dashboard-mobile-group-chevron ${
+                            isMobileGroupsOpen
+                              ? "dashboard-mobile-group-chevron-open"
+                              : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {isMobileGroupsOpen ? (
-                <div
-                  id="guide-mobile-group-list"
-                  className="dashboard-mobile-group-list"
-                >
+                {isMobileGroupsOpen ? (
+                  <div
+                    id="guide-mobile-group-list"
+                    className="dashboard-mobile-group-list"
+                  >
+                    {guide.groups.map(group => (
+                      <button
+                        key={group.id}
+                        type="button"
+                        onClick={() => {
+                          setActiveGroupId(group.id);
+                          setIsMobileGroupsOpen(false);
+                        }}
+                        className={`dashboard-mobile-group-chip ${
+                          group.id === activeGroup.id
+                            ? "dashboard-mobile-group-chip-active"
+                            : ""
+                        }`}
+                      >
+                        <span className="dashboard-mobile-group-chip-text">
+                          {group.title}
+                        </span>
+                        <span className="dashboard-mobile-group-chip-count">
+                          {group.items.length}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+
+                <div className="dashboard-sidebar-list">
                   {guide.groups.map(group => (
                     <button
                       key={group.id}
                       type="button"
-                      onClick={() => {
-                        setActiveGroupId(group.id);
-                        setIsMobileGroupsOpen(false);
-                      }}
-                      className={`dashboard-mobile-group-chip ${
-                        group.id === activeGroup.id
-                          ? "dashboard-mobile-group-chip-active"
-                          : ""
+                      onClick={() => setActiveGroupId(group.id)}
+                      className={`sidebar-item ${
+                        group.id === activeGroup.id ? "sidebar-item-active" : ""
                       }`}
                     >
-                      <span className="dashboard-mobile-group-chip-text">
-                        {group.title}
-                      </span>
-                      <span className="dashboard-mobile-group-chip-count">
+                      <span>{group.title}</span>
+                      <span className="sidebar-item-count">
                         {group.items.length}
                       </span>
                     </button>
                   ))}
                 </div>
-              ) : null}
 
-              <div className="dashboard-sidebar-list">
-                {guide.groups.map(group => (
-                  <button
-                    key={group.id}
-                    type="button"
-                    onClick={() => setActiveGroupId(group.id)}
-                    className={`sidebar-item ${
-                      group.id === activeGroup.id ? "sidebar-item-active" : ""
-                    }`}
-                  >
-                    <span>{group.title}</span>
-                    <span className="sidebar-item-count">
-                      {group.items.length}
+                <div className="dashboard-sidebar-meta">
+                  <div className="dashboard-sidebar-meta-item">
+                    <span className="dashboard-sidebar-meta-value">
+                      {totalResourceCount}
                     </span>
-                  </button>
-                ))}
-              </div>
-
-              <div className="dashboard-sidebar-meta">
-                <div className="dashboard-sidebar-meta-item">
-                  <span className="dashboard-sidebar-meta-value">
-                    {totalResourceCount}
-                  </span>
-                  <span className="dashboard-sidebar-meta-label">
-                    Curated links
-                  </span>
+                    <span className="dashboard-sidebar-meta-label">
+                      Curated links
+                    </span>
+                  </div>
+                  <div className="dashboard-sidebar-meta-item">
+                    <span className="dashboard-sidebar-meta-value">
+                      {totalCommunitySignals}
+                    </span>
+                    <span className="dashboard-sidebar-meta-label">
+                      Community uses
+                    </span>
+                  </div>
                 </div>
-                <div className="dashboard-sidebar-meta-item">
-                  <span className="dashboard-sidebar-meta-value">
-                    {totalCommunitySignals}
-                  </span>
-                  <span className="dashboard-sidebar-meta-label">
-                    Community uses
-                  </span>
-                </div>
+
+                <SuggestResourceDialog
+                  guideTitle={guide.title}
+                  groupOptions={guide.groups.map(group => ({
+                    id: group.id,
+                    title: group.title,
+                  }))}
+                />
               </div>
+            </aside>
 
-              <SuggestResourceDialog
-                guideTitle={guide.title}
-                groupOptions={guide.groups.map(group => ({
-                  id: group.id,
-                  title: group.title,
-                }))}
-              />
-            </div>
-          </aside>
+            <section className="dashboard-main">
+              <div className="dashboard-panel">
+                <div className="dashboard-main-header">
+                  <div>
+                    <div className="dashboard-main-header-top">
+                      <p className="dashboard-eyebrow">{activeGroup.title}</p>
+                      <div className="dashboard-mobile-toolbar-popover">
+                        <button
+                          type="button"
+                          className="dashboard-mobile-toolbar-toggle dashboard-main-header-filter-toggle"
+                          onClick={() => setIsMobileFiltersOpen(open => !open)}
+                          aria-expanded={isMobileFiltersOpen}
+                          aria-controls="guide-mobile-filters"
+                        >
+                          <span className="dashboard-mobile-toolbar-toggle-main">
+                            <SlidersHorizontal size={15} />
+                            <span>Filters</span>
+                          </span>
+                          <span className="dashboard-mobile-toolbar-toggle-meta">
+                            {activeFilterCount > 0 ? (
+                              <span className="dashboard-mobile-toolbar-count">
+                                {activeFilterCount}
+                              </span>
+                            ) : null}
+                            <ChevronDown
+                              size={16}
+                              className={`dashboard-mobile-toolbar-chevron ${
+                                isMobileFiltersOpen
+                                  ? "dashboard-mobile-toolbar-chevron-open"
+                                  : ""
+                              }`}
+                            />
+                          </span>
+                        </button>
 
-          <section className="dashboard-main">
-            <div className="dashboard-panel">
-              <div className="dashboard-main-header">
-                <div>
-                  <div className="dashboard-main-header-top">
-                    <p className="dashboard-eyebrow">{activeGroup.title}</p>
-                    <div className="dashboard-mobile-toolbar-popover">
-                      <button
-                        type="button"
-                        className="dashboard-mobile-toolbar-toggle dashboard-main-header-filter-toggle"
-                        onClick={() => setIsMobileFiltersOpen(open => !open)}
-                        aria-expanded={isMobileFiltersOpen}
-                        aria-controls="guide-mobile-filters"
-                      >
-                        <span className="dashboard-mobile-toolbar-toggle-main">
-                          <SlidersHorizontal size={15} />
-                          <span>Filters</span>
-                        </span>
-                        <span className="dashboard-mobile-toolbar-toggle-meta">
-                          {activeFilterCount > 0 ? (
-                            <span className="dashboard-mobile-toolbar-count">
-                              {activeFilterCount}
-                            </span>
-                          ) : null}
-                          <ChevronDown
-                            size={16}
-                            className={`dashboard-mobile-toolbar-chevron ${
-                              isMobileFiltersOpen
-                                ? "dashboard-mobile-toolbar-chevron-open"
-                                : ""
-                            }`}
-                          />
-                        </span>
-                      </button>
+                        <div
+                          id="guide-mobile-filters"
+                          className={`dashboard-toolbar ${
+                            isMobileFiltersOpen ? "dashboard-toolbar-open" : ""
+                          }`}
+                        >
+                          <label className="dashboard-search">
+                            <Search size={15} />
+                            <input
+                              value={searchQuery}
+                              onChange={event => setSearchQuery(event.target.value)}
+                              placeholder="Search resources"
+                              aria-label="Search resources"
+                            />
+                          </label>
 
-                      <div
-                        id="guide-mobile-filters"
-                        className={`dashboard-toolbar ${
-                          isMobileFiltersOpen ? "dashboard-toolbar-open" : ""
-                        }`}
-                      >
-                        <label className="dashboard-search">
-                          <Search size={15} />
-                          <input
-                            value={searchQuery}
-                            onChange={event => setSearchQuery(event.target.value)}
-                            placeholder="Search resources"
-                            aria-label="Search resources"
-                          />
-                        </label>
-
-                        <label className="dashboard-filter">
-                          <span>{guide.facetLabel}</span>
-                          <select
-                            value={selectedLanguage}
-                            onChange={event => setSelectedLanguage(event.target.value)}
-                            aria-label={`Filter by ${guide.facetLabel.toLowerCase()}`}
-                          >
-                            {languageOptions.map(option => (
-                              <option key={option} value={option}>
-                                {option}
-                              </option>
-                            ))}
-                          </select>
-                        </label>
-
-                        <label className="dashboard-filter">
-                          <span>Access</span>
-                          <select
-                            value={selectedAccess}
-                            onChange={event => setSelectedAccess(event.target.value)}
-                            aria-label="Filter by access"
-                          >
-                            <option value="All access">All access</option>
-                            <option value="Free">Free</option>
-                            <option value="Freemium">Freemium</option>
-                            <option value="Paid">Paid</option>
-                          </select>
-                        </label>
-
-                        <label className="dashboard-filter">
-                          <span>Sort</span>
-                          <select
-                            value={sortBy}
-                            onChange={event => setSortBy(event.target.value)}
-                            aria-label="Sort resources"
-                          >
-                            <option value="Most popular">Most popular</option>
-                            <option value="A-Z">A-Z</option>
-                            <option value="Z-A">Z-A</option>
-                          </select>
-                        </label>
-
-                        <div className="dashboard-mobile-filter-groups">
-                          <div className="dashboard-mobile-filter-group">
-                            <p className="dashboard-mobile-filter-title">
-                              {guide.facetLabel}
-                            </p>
-                            <div className="dashboard-mobile-filter-options">
+                          <label className="dashboard-filter">
+                            <span>{guide.facetLabel}</span>
+                            <select
+                              value={selectedLanguage}
+                              onChange={event =>
+                                setSelectedLanguage(event.target.value)
+                              }
+                              aria-label={`Filter by ${guide.facetLabel.toLowerCase()}`}
+                            >
                               {languageOptions.map(option => (
-                                <button
-                                  key={option}
-                                  type="button"
-                                  onClick={() => setSelectedLanguage(option)}
-                                  className={`dashboard-mobile-filter-option ${
-                                    selectedLanguage === option
-                                      ? "dashboard-mobile-filter-option-active"
-                                      : ""
-                                  }`}
-                                >
+                                <option key={option} value={option}>
                                   {option}
-                                </button>
+                                </option>
                               ))}
-                            </div>
-                          </div>
+                            </select>
+                          </label>
 
-                          <div className="dashboard-mobile-filter-group">
-                            <p className="dashboard-mobile-filter-title">
-                              Access
-                            </p>
-                            <div className="dashboard-mobile-filter-options">
-                              {accessOptions.map(option => (
-                                <button
-                                  key={option}
-                                  type="button"
-                                  onClick={() => setSelectedAccess(option)}
-                                  className={`dashboard-mobile-filter-option ${
-                                    selectedAccess === option
-                                      ? "dashboard-mobile-filter-option-active"
-                                      : ""
-                                  }`}
-                                >
-                                  {option}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
+                          <label className="dashboard-filter">
+                            <span>Access</span>
+                            <select
+                              value={selectedAccess}
+                              onChange={event =>
+                                setSelectedAccess(event.target.value)
+                              }
+                              aria-label="Filter by access"
+                            >
+                              <option value="All access">All access</option>
+                              <option value="Free">Free</option>
+                              <option value="Freemium">Freemium</option>
+                              <option value="Paid">Paid</option>
+                            </select>
+                          </label>
 
-                          <div className="dashboard-mobile-filter-group">
-                            <p className="dashboard-mobile-filter-title">Sort</p>
-                            <div className="dashboard-mobile-filter-options">
-                              {sortOptions.map(option => (
-                                <button
-                                  key={option}
-                                  type="button"
-                                  onClick={() => setSortBy(option)}
-                                  className={`dashboard-mobile-filter-option ${
-                                    sortBy === option
-                                      ? "dashboard-mobile-filter-option-active"
-                                      : ""
-                                  }`}
-                                >
-                                  {option}
-                                </button>
-                              ))}
+                          <label className="dashboard-filter">
+                            <span>Sort</span>
+                            <select
+                              value={sortBy}
+                              onChange={event => setSortBy(event.target.value)}
+                              aria-label="Sort resources"
+                            >
+                              <option value="Most popular">Most popular</option>
+                              <option value="A-Z">A-Z</option>
+                              <option value="Z-A">Z-A</option>
+                            </select>
+                          </label>
+
+                          <div className="dashboard-mobile-filter-groups">
+                            <div className="dashboard-mobile-filter-group">
+                              <p className="dashboard-mobile-filter-title">
+                                {guide.facetLabel}
+                              </p>
+                              <div className="dashboard-mobile-filter-options">
+                                {languageOptions.map(option => (
+                                  <button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => setSelectedLanguage(option)}
+                                    className={`dashboard-mobile-filter-option ${
+                                      selectedLanguage === option
+                                        ? "dashboard-mobile-filter-option-active"
+                                        : ""
+                                    }`}
+                                  >
+                                    {option}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="dashboard-mobile-filter-group">
+                              <p className="dashboard-mobile-filter-title">
+                                Access
+                              </p>
+                              <div className="dashboard-mobile-filter-options">
+                                {accessOptions.map(option => (
+                                  <button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => setSelectedAccess(option)}
+                                    className={`dashboard-mobile-filter-option ${
+                                      selectedAccess === option
+                                        ? "dashboard-mobile-filter-option-active"
+                                        : ""
+                                    }`}
+                                  >
+                                    {option}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="dashboard-mobile-filter-group">
+                              <p className="dashboard-mobile-filter-title">
+                                Sort
+                              </p>
+                              <div className="dashboard-mobile-filter-options">
+                                {sortOptions.map(option => (
+                                  <button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => setSortBy(option)}
+                                    className={`dashboard-mobile-filter-option ${
+                                      sortBy === option
+                                        ? "dashboard-mobile-filter-option-active"
+                                        : ""
+                                    }`}
+                                  >
+                                    {option}
+                                  </button>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <h2 className="guide-group-description">
+                      {activeGroup.description}
+                    </h2>
                   </div>
-                  <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-white">
-                    {activeGroup.description}
-                  </h2>
-                </div>
-                <div className="dashboard-pill">
-                  {filteredItems.length} resources
-                </div>
-              </div>
-
-              <div className="resource-table">
-                <div className="resource-table-head">
-                  <span>Sl.No</span>
-                  <span>Resource</span>
-                  <span>Stars</span>
-                  <span>Share</span>
-                  <span>Links</span>
+                  <div className="dashboard-pill">
+                    {filteredItems.length} resources
+                  </div>
                 </div>
 
-                <div className="resource-table-body">
-                  {filteredItems.map((item, index) => {
-                    const showProvider =
-                      !["YouTube", "GitHub"].includes(item.provider) &&
-                      item.provider !== item.kind;
-                    const itemNumber = String(index + 1).padStart(2, "0");
+                <div className="resource-table">
+                  <div className="resource-table-head">
+                    <span>Sl.No</span>
+                    <span>Resource</span>
+                    <span>Stars</span>
+                    <span>Share</span>
+                    <span>Links</span>
+                  </div>
 
-                    return (
-                      <article key={item.id} className="resource-table-row">
-                        <div className="resource-cell resource-cell-index">
-                          {itemNumber}
-                        </div>
-                        <div className="resource-cell resource-cell-main">
-                          <div className="resource-main-line">
-                            <div className="resource-mobile-header">
-                              <span className="resource-mobile-index">
-                                {itemNumber}
-                              </span>
-                              <div className="resource-identity">
-                                <h3 className="resource-title">{item.title}</h3>
-                                {showProvider ? (
-                                  <p className="resource-provider">
-                                    {item.provider}
-                                  </p>
+                  <div className="resource-table-body">
+                    {filteredItems.map((item, index) => {
+                      const showProvider =
+                        !["YouTube", "GitHub"].includes(item.provider) &&
+                        item.provider !== item.kind;
+                      const itemNumber = String(index + 1).padStart(2, "0");
+
+                      return (
+                        <article key={item.id} className="resource-table-row">
+                          <div className="resource-cell resource-cell-index">
+                            {itemNumber}
+                          </div>
+                          <div className="resource-cell resource-cell-main">
+                            <div className="resource-main-line">
+                              <div className="resource-main-head">
+                                <span className="resource-mobile-index">
+                                  {itemNumber}
+                                </span>
+                                <div className="resource-identity">
+                                  <h3 className="resource-title">{item.title}</h3>
+                                  {showProvider ? (
+                                    <p className="resource-provider">
+                                      {item.provider}
+                                    </p>
+                                  ) : null}
+                                </div>
+                              </div>
+                              <div className="resource-badge-row">
+                                <span className="dashboard-badge">
+                                  {item.kind}
+                                </span>
+                                <span className="dashboard-badge">
+                                  {item.access}
+                                </span>
+                                {item.languages.slice(0, 2).map(language => (
+                                  <span
+                                    key={language}
+                                    className="dashboard-badge dashboard-badge-muted"
+                                  >
+                                    {language}
+                                  </span>
+                                ))}
+                                {item.languages.length > 2 ? (
+                                  <span className="dashboard-badge dashboard-badge-muted">
+                                    +{item.languages.length - 2}
+                                  </span>
                                 ) : null}
                               </div>
+                              <p className="resource-note">{item.note}</p>
                             </div>
-                            <div className="resource-badge-row">
-                              <span className="dashboard-badge">
-                                {item.kind}
-                              </span>
-                              <span className="dashboard-badge">
-                                {item.access}
-                              </span>
-                              {item.languages.slice(0, 2).map(language => (
-                                <span
-                                  key={language}
-                                  className="dashboard-badge dashboard-badge-muted"
-                                >
-                                  {language}
-                                </span>
-                              ))}
-                              {item.languages.length > 2 ? (
-                                <span className="dashboard-badge dashboard-badge-muted">
-                                  +{item.languages.length - 2}
-                                </span>
-                              ) : null}
+                          </div>
+                          <div className="resource-actions-row">
+                            <div className="resource-cell resource-cell-stars">
+                              <HelpfulVote
+                                voteKey={`${guide.slug}:${item.id}`}
+                                baseCount={item.baseHelpfulCount}
+                              />
                             </div>
-                            <p className="resource-note">{item.note}</p>
+                            <div className="resource-cell resource-cell-share">
+                              <ShareButton
+                                title={`${item.title} • ${guide.title}`}
+                                url={item.url}
+                                text={item.note}
+                              />
+                            </div>
+                            <div className="resource-cell resource-cell-link">
+                              <a
+                                href={item.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="dashboard-text-link"
+                              >
+                                Link
+                                <ArrowUpRight size={15} />
+                              </a>
+                            </div>
                           </div>
-                        </div>
-                        <div className="resource-actions-row">
-                          <div className="resource-cell resource-cell-stars">
-                            <HelpfulVote
-                              voteKey={`${guide.slug}:${item.id}`}
-                              baseCount={item.baseHelpfulCount}
-                            />
-                          </div>
-                          <div className="resource-cell resource-cell-share">
-                            <ShareButton
-                              title={`${item.title} • ${guide.title}`}
-                              url={item.url}
-                              text={item.note}
-                            />
-                          </div>
-                          <div className="resource-cell resource-cell-link">
-                            <a
-                              href={item.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="dashboard-text-link"
-                            >
-                              Link
-                              <ArrowUpRight size={15} />
-                            </a>
-                          </div>
-                        </div>
-                      </article>
-                    );
-                  })}
+                        </article>
+                      );
+                    })}
 
-                  {filteredItems.length === 0 ? (
-                    <div className="resource-empty-state">
-                      No matching resources for this filter yet.
-                    </div>
-                  ) : null}
+                    {filteredItems.length === 0 ? (
+                      <div className="resource-empty-state">
+                        No matching resources for this filter yet.
+                      </div>
+                    ) : null}
 
-                  <SuggestResourceDialog
-                    guideTitle={guide.title}
-                    groupOptions={guide.groups.map(group => ({
-                      id: group.id,
-                      title: group.title,
-                    }))}
-                    initialSectionId={activeGroup.id}
-                    triggerClassName="dashboard-suggest-trigger-inline"
-                  />
+                    <SuggestResourceDialog
+                      guideTitle={guide.title}
+                      groupOptions={guide.groups.map(group => ({
+                        id: group.id,
+                        title: group.title,
+                      }))}
+                      initialSectionId={activeGroup.id}
+                      triggerClassName="dashboard-suggest-trigger-inline"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
         </div>
       </div>
     </div>

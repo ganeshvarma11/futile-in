@@ -14,6 +14,460 @@
   --radius: 24px;
 }
 
+/* Mobile UX overrides */
+.guide-page-frame,
+.dashboard-layout,
+.dashboard-main,
+.dashboard-panel,
+.resource-table,
+.resource-table-body,
+.resource-table-row {
+  min-width: 0;
+}
+
+.guide-page-title,
+.guide-group-description,
+.resource-title {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 767px) {
+  .site-nav {
+    z-index: 90;
+  }
+
+  .site-masthead-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    padding: 1rem 0 0.9rem;
+  }
+
+  .brand-lockup {
+    min-width: 0;
+  }
+
+  .brand-mark {
+    font-size: 1.15rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.62rem;
+    letter-spacing: 0.11em;
+  }
+
+  .site-nav-toggle {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .site-nav-mobile-shell {
+    position: fixed;
+    inset: 0;
+    top: 4.9rem;
+    z-index: 89;
+  }
+
+  .site-nav-mobile-backdrop {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: rgba(14, 16, 18, 0.44);
+  }
+
+  .site-nav-mobile {
+    position: relative;
+    z-index: 1;
+    padding-top: 0.75rem;
+  }
+
+  .site-nav-mobile-card {
+    display: grid;
+    gap: 0.95rem;
+    padding: 0.95rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(17, 23, 31, 0.12);
+  }
+
+  .site-nav-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .site-nav-mobile-label {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .site-nav-mobile-close {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  .site-nav-mobile .masthead-search.mobile {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0;
+    width: 100%;
+  }
+
+  .site-nav-mobile .masthead-search-button {
+    min-width: auto;
+    padding-inline: 0.95rem;
+  }
+
+  .site-nav-mobile-links {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .site-nav-mobile .nav-link {
+    justify-content: space-between;
+    min-height: 3rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.96rem;
+    font-weight: 700;
+  }
+
+  .guide-page-frame {
+    gap: 0.9rem;
+  }
+
+  .guide-page-intro {
+    gap: 0.85rem;
+    padding-bottom: 0.9rem;
+  }
+
+  .guide-page-title {
+    font-size: 1.85rem;
+    line-height: 0.98;
+  }
+
+  .guide-page-summary {
+    font-size: 0.96rem;
+    line-height: 1.55;
+  }
+
+  .guide-page-intro-meta {
+    gap: 0.65rem;
+  }
+
+  .guide-page-meta-card {
+    padding: 0.9rem;
+  }
+
+  .dashboard-topbar {
+    gap: 0.7rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .dashboard-topbar-actions {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.55rem;
+    align-items: center;
+  }
+
+  .dashboard-backlink {
+    font-size: 0.84rem;
+  }
+
+  .dashboard-pill {
+    font-size: 0.66rem;
+  }
+
+  .dashboard-share-button-page {
+    width: auto;
+    min-height: 2.2rem;
+    padding-inline: 0.8rem;
+    font-size: 0.74rem;
+  }
+
+  .dashboard-share-button-page span {
+    font-size: 0.74rem;
+  }
+
+  .dashboard-summary-panel {
+    gap: 0.7rem;
+  }
+
+  .dashboard-summary-panel .dashboard-summary-top {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .guide-sidebar-title {
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+
+  .dashboard-mobile-group-bar {
+    display: block;
+    width: 100%;
+  }
+
+  .dashboard-mobile-group-strip {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dashboard-mobile-group-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dashboard-mobile-group-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex: 0 0 auto;
+    min-height: 2.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    padding: 0 0.8rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .dashboard-mobile-group-pill-active {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .dashboard-mobile-group-pill-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 999px;
+    padding: 0 0.28rem;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.68rem;
+    line-height: 1;
+  }
+
+  .dashboard-main-header {
+    gap: 0.6rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .dashboard-main-header-top {
+    display: block;
+  }
+
+  .dashboard-main-header .dashboard-eyebrow {
+    margin-bottom: 0.35rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+  }
+
+  .guide-group-description {
+    margin-top: 0;
+    font-size: 1.28rem;
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+  }
+
+  .dashboard-mobile-filter-panel {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .dashboard-mobile-search {
+    min-height: 2.95rem;
+  }
+
+  .dashboard-mobile-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .dashboard-filter-wide {
+    grid-column: 1 / -1;
+  }
+
+  .dashboard-mobile-filter-panel .dashboard-search,
+  .dashboard-mobile-filter-panel .dashboard-filter {
+    min-width: 0;
+    min-height: 3rem;
+    padding-inline: 0.8rem;
+    border-radius: 14px;
+  }
+
+  .dashboard-mobile-filter-panel .dashboard-filter span {
+    font-size: 0.72rem;
+  }
+
+  .dashboard-mobile-filter-panel .dashboard-filter select,
+  .dashboard-mobile-filter-panel .dashboard-search input {
+    min-width: 0;
+    font-size: 0.86rem;
+  }
+
+  .resource-table {
+    margin-top: 0.9rem;
+  }
+
+  .resource-table-body {
+    gap: 0.7rem;
+  }
+
+  .resource-table-row {
+    gap: 0.7rem;
+    padding: 0.9rem;
+    border-radius: 18px;
+  }
+
+  .resource-main-head {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .resource-mobile-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 0.5rem;
+  }
+
+  .resource-mobile-index {
+    display: inline-block;
+    padding-top: 0.18rem;
+    font-size: 0.72rem;
+  }
+
+  .resource-identity {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .resource-title {
+    font-size: 0.96rem;
+    line-height: 1.22;
+  }
+
+  .resource-provider {
+    font-size: 0.8rem;
+    text-align: left;
+  }
+
+  .resource-badge-row,
+  .resource-note,
+  .resource-actions-row {
+    margin-left: 0;
+  }
+
+  .resource-badge-row {
+    gap: 0.35rem;
+  }
+
+  .resource-note {
+    font-size: 0.82rem;
+    line-height: 1.52;
+    -webkit-line-clamp: unset;
+  }
+
+  .resource-actions-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, max-content));
+    gap: 0.55rem 0.8rem;
+  }
+
+  .resource-cell-link {
+    grid-column: 1 / -1;
+  }
+
+  .dashboard-text-link,
+  .dashboard-share-button,
+  .dsa-dashboard-page .vote-button {
+    font-size: 0.8rem;
+  }
+
+  .dashboard-suggest-trigger-inline {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dashboard-modal-overlay {
+    align-items: flex-end;
+    padding: 0.75rem;
+  }
+
+  .dashboard-modal {
+    width: min(100%, 28rem);
+    max-height: min(82vh, 34rem);
+    border-radius: 18px;
+    padding: 0.9rem;
+  }
+
+  .dashboard-modal-title {
+    font-size: 1.08rem;
+  }
+
+  .dashboard-modal-copy,
+  .dashboard-modal-status {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .dashboard-suggest-form {
+    gap: 0.7rem;
+    margin-top: 0.85rem;
+  }
+
+  .dashboard-form-field input,
+  .dashboard-form-field select,
+  .dashboard-form-field textarea {
+    padding: 0.78rem 0.85rem;
+    border-radius: 12px;
+  }
+
+  .dashboard-form-field textarea {
+    min-height: 5.5rem;
+  }
+
+  .dashboard-modal-footer {
+    gap: 0.75rem;
+    margin-top: 0.85rem;
+  }
+
+  .dashboard-modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .dashboard-modal-button {
+    width: 100%;
+    min-height: 2.55rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard-mobile-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-modal-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
 .channels-page {
   display: grid;
   gap: 1.8rem;

@@ -25,6 +25,21 @@
   min-width: 0;
 }
 
+.categories-page > *,
+.categories-subnav-shell,
+.page-frame.page-frame-compact,
+.categories-toolbar-section,
+.categories-list,
+.categories-list-row {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.categories-subnav-shell,
+.page-frame.page-frame-compact {
+  width: 100%;
+}
+
 .guide-page-title,
 .guide-group-description,
 .resource-title {

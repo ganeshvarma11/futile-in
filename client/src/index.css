@@ -197,7 +197,9 @@
 
   .dashboard-summary-panel .dashboard-summary-top {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.35rem;
+    min-width: 0;
   }
 
   .guide-sidebar-title {
@@ -208,11 +210,15 @@
   .dashboard-mobile-group-bar {
     display: block;
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .dashboard-mobile-group-strip {
     display: flex;
     gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     padding-bottom: 0.2rem;
     -webkit-overflow-scrolling: touch;

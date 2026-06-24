@@ -156,8 +156,9 @@ export default defineConfig(({ command }) => {
     react(),
     tailwindcss(),
     jsxLocPlugin(),
-    vitePluginManusRuntime(),
-    ...(isDevServer ? [vitePluginManusDebugCollector()] : []),
+    ...(isDevServer
+      ? [vitePluginManusRuntime(), vitePluginManusDebugCollector()]
+      : []),
   ];
 
   return {

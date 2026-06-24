@@ -5135,7 +5135,7 @@
       font-weight: 800;
       letter-spacing: 0.11em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.55);
+      color: #7a8794;
     }
 
     .dashboard-summary-panel .dashboard-mobile-sections-rail {
@@ -5156,18 +5156,18 @@
       gap: 0.45rem;
       flex: 0 0 auto;
       min-height: 2.25rem;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid #d6dee7;
       border-radius: 14px;
       padding: 0 0.8rem;
-      background: rgba(255, 255, 255, 0.04);
-      color: rgba(255, 255, 255, 0.82);
+      background: #f8fbfe;
+      color: var(--foreground);
       text-align: left;
     }
 
     .dashboard-summary-panel .dashboard-mobile-section-chip-active {
-      background: rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.14);
+      background: #eaf4fc;
+      color: #245f96;
+      border-color: #bfd2e5;
     }
 
     .dashboard-summary-panel .dashboard-mobile-section-chip-title {
@@ -5184,7 +5184,8 @@
       height: 1.35rem;
       border-radius: 999px;
       padding: 0 0.28rem;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(79, 147, 207, 0.14);
+      color: #245f96;
       font-size: 0.68rem;
       font-weight: 800;
       line-height: 1;
@@ -5352,12 +5353,37 @@
       gap: 0.5rem;
     }
 
+    .guide-page .dashboard-mobile-toolbar-toggle {
+      width: 100%;
+      min-height: 2.65rem;
+      margin: 0;
+      border: 1px solid var(--border);
+      background: #f8fbfe;
+      color: var(--foreground);
+      box-shadow: none;
+    }
+
+    .guide-page .dashboard-mobile-toolbar-toggle-main,
+    .guide-page .dashboard-mobile-toolbar-toggle-meta {
+      color: inherit;
+    }
+
+    .guide-page .dashboard-mobile-toolbar-count {
+      background: #eaf4fc;
+      color: #245f96;
+    }
+
     .dashboard-mobile-filter-pills {
       display: flex;
       gap: 0.4rem;
       overflow-x: auto;
       padding-bottom: 0.1rem;
       -webkit-overflow-scrolling: touch;
+    }
+
+    .guide-page .dashboard-mobile-filter-pills {
+      flex-wrap: wrap;
+      overflow: visible;
     }
 
     .dashboard-mobile-filter-pills::-webkit-scrollbar {
@@ -5371,11 +5397,26 @@
       flex: 0 0 auto;
       border-radius: 999px;
       padding: 0 0.65rem;
-      background: rgba(255, 255, 255, 0.06);
-      color: rgba(255, 255, 255, 0.76);
+      border: 1px solid #d6dee7;
+      background: #ffffff;
+      color: #66717c;
       font-size: 0.7rem;
       font-weight: 700;
       white-space: nowrap;
+    }
+
+    .guide-page .dashboard-mobile-filter-grid .dashboard-filter {
+      border: 1px solid var(--border);
+      background: #f8fbfe;
+      color: var(--foreground);
+    }
+
+    .guide-page .dashboard-mobile-filter-grid .dashboard-filter span {
+      color: #6f7c88;
+    }
+
+    .guide-page .dashboard-mobile-filter-grid .dashboard-filter select {
+      color: var(--foreground);
     }
 
     .dashboard-search,

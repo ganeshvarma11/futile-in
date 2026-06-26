@@ -4536,6 +4536,407 @@
     }
   }
 
+  .guide-page.guide-page-compact .dashboard-layout {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-sidebar {
+    position: static;
+    top: auto;
+  }
+
+  .guide-page.guide-page-compact .dashboard-panel {
+    min-width: 0;
+    padding: 1rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .guide-page.guide-page-compact .dashboard-topbar-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    width: 100%;
+    gap: 0.65rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-summary-panel {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-summary-panel .dashboard-summary-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .guide-page.guide-page-compact .dashboard-summary-panel .dashboard-eyebrow {
+    display: none;
+  }
+
+  .guide-page.guide-page-compact .dashboard-summary-panel .guide-sidebar-title {
+    font-size: 1.35rem;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-sections {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-sections-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-sections-label,
+  .guide-page.guide-page-compact .dashboard-mobile-sections-count {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: #7a8794;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-sections-rail {
+    display: flex;
+    gap: 0.55rem;
+    overflow-x: auto;
+    padding-bottom: 0.12rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-sections-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-section-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex: 0 0 auto;
+    min-height: 2.25rem;
+    border: 1px solid #d6dee7;
+    border-radius: 14px;
+    padding: 0 0.8rem;
+    background: #f8fbfe;
+    color: var(--foreground);
+    text-align: left;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-section-chip-active {
+    background: #eaf4fc;
+    color: #245f96;
+    border-color: #bfd2e5;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-section-chip-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-section-chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 999px;
+    padding: 0 0.28rem;
+    background: rgba(79, 147, 207, 0.14);
+    color: #245f96;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .guide-page.guide-page-compact .dashboard-sidebar-list {
+    display: none;
+  }
+
+  .guide-page.guide-page-compact .dashboard-sidebar-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .guide-page.guide-page-compact .dashboard-suggest-trigger {
+    width: 100%;
+    max-width: none;
+  }
+
+  .guide-page.guide-page-compact .dashboard-main-header {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 0.8rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-main-header-top {
+    display: block;
+  }
+
+  .guide-page.guide-page-compact .dashboard-main-header .dashboard-pill {
+    justify-self: start;
+  }
+
+  .guide-page.guide-page-compact .guide-group-description {
+    margin-top: 0;
+    font-size: 1.35rem;
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-filter-panel {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-search {
+    min-height: 2.95rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-toolbar-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 2.65rem;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0 0.9rem;
+    background: #f8fbfe;
+    color: var(--foreground);
+    box-shadow: none;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-toolbar-toggle-main,
+  .guide-page.guide-page-compact .dashboard-mobile-toolbar-toggle-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: inherit;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-toolbar-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 999px;
+    padding: 0 0.35rem;
+    background: #eaf4fc;
+    color: #245f96;
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-filter-summary {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    overflow: visible;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-filter-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.8rem;
+    border: 1px solid #d6dee7;
+    border-radius: 999px;
+    padding: 0 0.65rem;
+    background: #ffffff;
+    color: #66717c;
+    font-size: 0.7rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-filter-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-filter-wide {
+    grid-column: auto;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-filter-panel .dashboard-search,
+  .guide-page.guide-page-compact .dashboard-mobile-filter-panel .dashboard-filter {
+    min-width: 0;
+    min-height: 3rem;
+    padding-inline: 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #f8fbfe;
+    color: var(--foreground);
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-filter-panel .dashboard-filter span {
+    color: #6f7c88;
+    font-size: 0.72rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-mobile-filter-panel .dashboard-filter select,
+  .guide-page.guide-page-compact .dashboard-mobile-filter-panel .dashboard-search input {
+    min-width: 0;
+    font-size: 0.86rem;
+    color: var(--foreground);
+  }
+
+  .guide-page.guide-page-compact .resource-table {
+    margin-top: 0.95rem;
+    min-width: 0;
+  }
+
+  .guide-page.guide-page-compact .resource-table-head {
+    display: none;
+  }
+
+  .guide-page.guide-page-compact .resource-table-body {
+    display: grid;
+    min-width: 0;
+  }
+
+  .guide-page.guide-page-compact .resource-table-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+    min-width: 0;
+  }
+
+  .guide-page.guide-page-compact .resource-table-row:first-child {
+    border-top: 0;
+  }
+
+  .guide-page.guide-page-compact .resource-cell {
+    min-width: 0;
+  }
+
+  .guide-page.guide-page-compact .resource-cell-index {
+    display: none;
+  }
+
+  .guide-page.guide-page-compact .resource-main-line {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .guide-page.guide-page-compact .resource-main-head {
+    display: flex;
+    align-items: start;
+    gap: 0.8rem;
+    min-width: 0;
+  }
+
+  .guide-page.guide-page-compact .resource-mobile-index {
+    display: inline-block;
+    flex: 0 0 auto;
+    padding-top: 0.18rem;
+    color: #7d8792;
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  .guide-page.guide-page-compact .resource-identity {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .guide-page.guide-page-compact .resource-title {
+    max-width: none;
+    overflow: visible;
+    text-overflow: unset;
+    white-space: normal;
+    font-size: 0.96rem;
+    line-height: 1.22;
+  }
+
+  .guide-page.guide-page-compact .resource-provider {
+    text-align: left;
+    max-width: none;
+    overflow: visible;
+    text-overflow: unset;
+    white-space: normal;
+    font-size: 0.8rem;
+  }
+
+  .guide-page.guide-page-compact .resource-badge-row,
+  .guide-page.guide-page-compact .resource-note,
+  .guide-page.guide-page-compact .resource-actions-row {
+    margin-left: 0;
+  }
+
+  .guide-page.guide-page-compact .resource-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    overflow: visible;
+  }
+
+  .guide-page.guide-page-compact .resource-note {
+    max-width: none;
+    overflow: visible;
+    text-overflow: unset;
+    white-space: normal;
+    font-size: 0.82rem;
+    line-height: 1.52;
+  }
+
+  .guide-page.guide-page-compact .resource-actions-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, max-content));
+    gap: 0.55rem 0.8rem;
+  }
+
+  .guide-page.guide-page-compact .resource-cell-stars,
+  .guide-page.guide-page-compact .resource-cell-share,
+  .guide-page.guide-page-compact .resource-cell-link {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .guide-page.guide-page-compact .resource-cell-link {
+    grid-column: 1 / -1;
+  }
+
+  .guide-page.guide-page-compact .dashboard-text-link,
+  .guide-page.guide-page-compact .dashboard-share-button,
+  .guide-page.guide-page-compact .dsa-dashboard-page .vote-button {
+    font-size: 0.8rem;
+  }
+
+  .guide-page.guide-page-compact .dashboard-suggest-trigger-inline {
+    width: 100%;
+    justify-content: center;
+  }
+
   @media (max-width: 639px) {
     .site-nav .site-container {
       padding-top: 0.9rem;

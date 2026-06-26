@@ -33,7 +33,9 @@ export default function GuidePage({ slug }: GuidePageProps) {
   const [sortBy, setSortBy] = useState("Most popular");
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [isMobileGroupsOpen, setIsMobileGroupsOpen] = useState(false);
+  const [prefersCompactGuide, setPrefersCompactGuide] = useState(false);
   const isMobile = useIsMobile();
+  const isCompactGuide = isMobile || prefersCompactGuide;
   const guideShareUrl =
     typeof window === "undefined"
       ? `/guides/${guide.slug}`
@@ -50,10 +52,22 @@ export default function GuidePage({ slug }: GuidePageProps) {
   }, [guide]);
 
   useEffect(() => {
-    if (!isMobile) return;
+    const updateCompactGuide = () => {
+      const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+      setPrefersCompactGuide(coarsePointer && window.innerWidth < 1400);
+    };
+
+    updateCompactGuide();
+    window.addEventListener("resize", updateCompactGuide);
+
+    return () => window.removeEventListener("resize", updateCompactGuide);
+  }, []);
+
+  useEffect(() => {
+    if (!isCompactGuide) return;
     setIsMobileFiltersOpen(false);
     setIsMobileGroupsOpen(false);
-  }, [activeGroupId, isMobile]);
+  }, [activeGroupId, isCompactGuide]);
 
   const totalResourceCount = useMemo(
     () => guide.groups.reduce((count, group) => count + group.items.length, 0),
@@ -147,7 +161,11 @@ export default function GuidePage({ slug }: GuidePageProps) {
   const sortOptions = ["Most popular", "A-Z", "Z-A"] as const;
 
   return (
-    <div className="dsa-dashboard-page guide-page">
+    <div
+      className={`dsa-dashboard-page guide-page ${
+        isCompactGuide ? "guide-page-compact" : ""
+      }`}
+    >
       <div className="site-container py-8 sm:py-10">
         <div className="page-frame guide-page-frame">
           <div className="dashboard-topbar">
@@ -195,7 +213,7 @@ export default function GuidePage({ slug }: GuidePageProps) {
                   </div>
                 </div>
 
-                {!isMobile ? (
+                {!isCompactGuide ? (
                   <div className="dashboard-mobile-group-bar">
                     <div className="dashboard-mobile-group-picker">
                       <button
@@ -254,7 +272,7 @@ export default function GuidePage({ slug }: GuidePageProps) {
                   </div>
                 )}
 
-                {!isMobile && isMobileGroupsOpen ? (
+                {!isCompactGuide && isMobileGroupsOpen ? (
                   <div
                     id="guide-mobile-group-list"
                     className="dashboard-mobile-group-list"
@@ -337,7 +355,7 @@ export default function GuidePage({ slug }: GuidePageProps) {
                   <div>
                     <div className="dashboard-main-header-top">
                       <p className="dashboard-eyebrow">{activeGroup.title}</p>
-                      {!isMobile ? (
+                      {!isCompactGuide ? (
                         <div className="dashboard-mobile-toolbar-popover">
                           <button
                             type="button"
@@ -511,7 +529,7 @@ export default function GuidePage({ slug }: GuidePageProps) {
                   </div>
                 </div>
 
-                {isMobile ? (
+                {isCompactGuide ? (
                   <div className="dashboard-mobile-filter-panel">
                     <label className="dashboard-search dashboard-mobile-search">
                       <Search size={15} />

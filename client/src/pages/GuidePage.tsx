@@ -33,7 +33,11 @@ export default function GuidePage({ slug }: GuidePageProps) {
   const [sortBy, setSortBy] = useState("Most popular");
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [isMobileGroupsOpen, setIsMobileGroupsOpen] = useState(false);
-  const [prefersCompactGuide, setPrefersCompactGuide] = useState(false);
+  const [prefersCompactGuide, setPrefersCompactGuide] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    return window.innerWidth < 1180 || (coarsePointer && window.innerWidth < 1400);
+  });
   const isMobile = useIsMobile();
   const isCompactGuide = isMobile || prefersCompactGuide;
   const guideShareUrl =
@@ -54,7 +58,9 @@ export default function GuidePage({ slug }: GuidePageProps) {
   useEffect(() => {
     const updateCompactGuide = () => {
       const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-      setPrefersCompactGuide(coarsePointer && window.innerWidth < 1400);
+      setPrefersCompactGuide(
+        window.innerWidth < 1180 || (coarsePointer && window.innerWidth < 1400)
+      );
     };
 
     updateCompactGuide();

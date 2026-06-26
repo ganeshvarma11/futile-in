@@ -19,6 +19,7 @@ const homeDescriptionOverrides: Record<string, string> = {
   "coding-resources": "Programming foundations and practice resources.",
   java: "Java learning, DSA, backend basics, and interview prep.",
   python: "Python learning, DSA, backend basics, and interview prep.",
+  javascript: "JavaScript learning, browser basics, Node.js, and interview prep.",
   "aptitude-reasoning": "Quant and reasoning for placements and exams.",
   "fresher-jobs": "Internships and entry-level job resources.",
 };

@@ -32,6 +32,7 @@ const categoryUmbrellaMap: Record<string, Exclude<UmbrellaFilter, "All">[]> = {
   java: ["Tech"],
   python: ["Tech"],
   javascript: ["Tech"],
+  cpp: ["Tech"],
   "useful-extensions": ["Tech"],
   "ai-tools": ["AI"],
   "fresher-jobs": ["Jobs & Interview", "Startups"],

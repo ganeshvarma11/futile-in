@@ -4267,42 +4267,45 @@
       justify-content: flex-end;
     }
 
-    .resource-main-line {
-      display: grid;
-      grid-template-columns: fit-content(360px) minmax(90px, 120px) auto minmax(
-          180px,
-          1fr
-        );
-      align-items: center;
-      gap: 0.85rem;
-      min-width: 0;
-      white-space: nowrap;
-    }
+  .resource-main-line {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 0.85rem;
+    min-width: 0;
+    white-space: normal;
+  }
 
-    .resource-provider,
-    .resource-note {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+  .resource-main-head {
+    min-width: 0;
+  }
 
-    .resource-title {
-      min-width: 0;
-      max-width: 360px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+  .resource-identity {
+    min-width: 0;
+  }
 
-    .resource-provider {
-      min-width: 0;
-    }
+  .resource-provider,
+  .resource-note {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
 
-    .resource-badge-row {
-      min-width: 0;
-      flex-wrap: nowrap;
-      overflow: hidden;
+  .resource-title {
+    min-width: 0;
+    max-width: none;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .resource-provider {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .resource-badge-row {
+    min-width: 0;
+    flex-wrap: wrap;
+    overflow: visible;
     }
 
     .resource-note {

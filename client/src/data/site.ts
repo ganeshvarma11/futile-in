@@ -72,6 +72,12 @@ export const categories: Category[] = [
     forWho: "People who need a stronger coding base before specializing too early.",
   },
   {
+    slug: "java",
+    name: "Java",
+    description: "Beginner-friendly Java, DSA-in-Java, backend basics, and interview prep.",
+    forWho: "Students and freshers learning Java for placements, fundamentals, or backend growth.",
+  },
+  {
     slug: "aptitude-reasoning",
     name: "Aptitude & Reasoning",
     description: "Quant, logical reasoning, and practice resources for placements, banking, SSC, and general exams.",
@@ -926,7 +932,7 @@ export const guides: Guide[] = [
   {
     slug: "java",
     title: "Java resources",
-    categorySlug: "coding-resources",
+    categorySlug: "java",
     summary:
       "All the major Java resources a student usually needs in one place.",
     forWho:

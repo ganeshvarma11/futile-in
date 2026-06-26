@@ -4557,9 +4557,9 @@
   }
 
   .guide-page.guide-page-compact .dashboard-topbar-actions {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
     gap: 0.65rem;
   }
 
@@ -4805,130 +4805,89 @@
     color: var(--foreground);
   }
 
-  .guide-page.guide-page-compact .resource-table {
+  .guide-page.guide-page-compact .guide-compact-list {
+    display: grid;
+    gap: 0.85rem;
     margin-top: 0.95rem;
     min-width: 0;
   }
 
-  .guide-page.guide-page-compact .resource-table-head {
-    display: none;
-  }
-
-  .guide-page.guide-page-compact .resource-table-body {
+  .guide-page.guide-page-compact .guide-compact-card {
     display: grid;
+    gap: 0.55rem;
+    padding: 0.95rem;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: #ffffff;
     min-width: 0;
   }
 
-  .guide-page.guide-page-compact .resource-table-row {
+  .guide-page.guide-page-compact .guide-compact-card-head {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.9rem;
-    padding: 1rem 0;
-    border-top: 1px solid var(--border);
-    min-width: 0;
-  }
-
-  .guide-page.guide-page-compact .resource-table-row:first-child {
-    border-top: 0;
-  }
-
-  .guide-page.guide-page-compact .resource-cell {
-    min-width: 0;
-  }
-
-  .guide-page.guide-page-compact .resource-cell-index {
-    display: none;
-  }
-
-  .guide-page.guide-page-compact .resource-main-line {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
-    min-width: 0;
-  }
-
-  .guide-page.guide-page-compact .resource-main-head {
-    display: flex;
+    grid-template-columns: auto minmax(0, 1fr);
     align-items: start;
-    gap: 0.8rem;
-    min-width: 0;
+    gap: 0.65rem;
   }
 
-  .guide-page.guide-page-compact .resource-mobile-index {
-    display: inline-block;
-    flex: 0 0 auto;
-    padding-top: 0.18rem;
+  .guide-page.guide-page-compact .guide-compact-card-index {
+    padding-top: 0.15rem;
     color: #7d8792;
     font-size: 0.72rem;
     font-weight: 800;
+    line-height: 1;
   }
 
-  .guide-page.guide-page-compact .resource-identity {
+  .guide-page.guide-page-compact .guide-compact-card-identity {
     display: grid;
     gap: 0.2rem;
     min-width: 0;
   }
 
-  .guide-page.guide-page-compact .resource-title {
-    max-width: none;
-    overflow: visible;
-    text-overflow: unset;
-    white-space: normal;
-    font-size: 0.96rem;
-    line-height: 1.22;
+  .guide-page.guide-page-compact .guide-compact-card-title {
+    margin: 0;
+    color: var(--foreground);
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.24;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
   }
 
-  .guide-page.guide-page-compact .resource-provider {
-    text-align: left;
-    max-width: none;
-    overflow: visible;
-    text-overflow: unset;
-    white-space: normal;
+  .guide-page.guide-page-compact .guide-compact-card-provider {
+    margin: 0;
+    color: #60707d;
     font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
   }
 
-  .guide-page.guide-page-compact .resource-badge-row,
-  .guide-page.guide-page-compact .resource-note,
-  .guide-page.guide-page-compact .resource-actions-row {
+  .guide-page.guide-page-compact .guide-compact-card-badges {
     margin-left: 0;
-  }
-
-  .guide-page.guide-page-compact .resource-badge-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
     overflow: visible;
   }
 
-  .guide-page.guide-page-compact .resource-note {
-    max-width: none;
-    overflow: visible;
-    text-overflow: unset;
-    white-space: normal;
-    font-size: 0.82rem;
-    line-height: 1.52;
+  .guide-page.guide-page-compact .guide-compact-card-note {
+    margin: 0;
+    color: var(--muted-foreground);
+    font-size: 0.84rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
   }
 
-  .guide-page.guide-page-compact .resource-actions-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, max-content));
-    gap: 0.55rem 0.8rem;
-  }
-
-  .guide-page.guide-page-compact .resource-cell-stars,
-  .guide-page.guide-page-compact .resource-cell-share,
-  .guide-page.guide-page-compact .resource-cell-link {
+  .guide-page.guide-page-compact .guide-compact-card-actions {
     display: flex;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem 0.85rem;
   }
 
-  .guide-page.guide-page-compact .resource-cell-link {
-    grid-column: 1 / -1;
-  }
-
-  .guide-page.guide-page-compact .dashboard-text-link,
-  .guide-page.guide-page-compact .dashboard-share-button,
-  .guide-page.guide-page-compact .dsa-dashboard-page .vote-button {
+  .guide-page.guide-page-compact .guide-compact-card-actions .dashboard-share-button,
+  .guide-page.guide-page-compact .guide-compact-card-actions .dashboard-text-link,
+  .guide-page.guide-page-compact .guide-compact-card-actions .vote-button {
     font-size: 0.8rem;
   }
 

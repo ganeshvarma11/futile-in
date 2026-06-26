@@ -640,16 +640,8 @@ export default function GuidePage({ slug }: GuidePageProps) {
                   </div>
                 ) : null}
 
-                <div className="resource-table">
-                  <div className="resource-table-head">
-                    <span>Sl.No</span>
-                    <span>Resource</span>
-                    <span>Stars</span>
-                    <span>Share</span>
-                    <span>Links</span>
-                  </div>
-
-                  <div className="resource-table-body">
+                {isCompactGuide ? (
+                  <div className="guide-compact-list">
                     {filteredItems.map((item, index) => {
                       const showProvider =
                         !["YouTube", "GitHub"].includes(item.provider) &&
@@ -657,74 +649,62 @@ export default function GuidePage({ slug }: GuidePageProps) {
                       const itemNumber = String(index + 1).padStart(2, "0");
 
                       return (
-                        <article key={item.id} className="resource-table-row">
-                          <div className="resource-cell resource-cell-index">
-                            {itemNumber}
-                          </div>
-                          <div className="resource-cell resource-cell-main">
-                            <div className="resource-main-line">
-                              <div className="resource-main-head">
-                                <span className="resource-mobile-index">
-                                  {itemNumber}
-                                </span>
-                                <div className="resource-identity">
-                                  <h3 className="resource-title">{item.title}</h3>
-                                  {showProvider ? (
-                                    <p className="resource-provider">
-                                      {item.provider}
-                                    </p>
-                                  ) : null}
-                                </div>
-                              </div>
-                              <div className="resource-badge-row">
-                                <span className="dashboard-badge">
-                                  {item.kind}
-                                </span>
-                                <span className="dashboard-badge">
-                                  {item.access}
-                                </span>
-                                {item.languages.slice(0, 2).map(language => (
-                                  <span
-                                    key={language}
-                                    className="dashboard-badge dashboard-badge-muted"
-                                  >
-                                    {language}
-                                  </span>
-                                ))}
-                                {item.languages.length > 2 ? (
-                                  <span className="dashboard-badge dashboard-badge-muted">
-                                    +{item.languages.length - 2}
-                                  </span>
-                                ) : null}
-                              </div>
-                              <p className="resource-note">{item.note}</p>
+                        <article key={item.id} className="guide-compact-card">
+                          <div className="guide-compact-card-head">
+                            <span className="guide-compact-card-index">
+                              {itemNumber}
+                            </span>
+                            <div className="guide-compact-card-identity">
+                              <h3 className="guide-compact-card-title">
+                                {item.title}
+                              </h3>
+                              {showProvider ? (
+                                <p className="guide-compact-card-provider">
+                                  {item.provider}
+                                </p>
+                              ) : null}
                             </div>
                           </div>
-                          <div className="resource-actions-row">
-                            <div className="resource-cell resource-cell-stars">
-                              <HelpfulVote
-                                voteKey={`${guide.slug}:${item.id}`}
-                                baseCount={item.baseHelpfulCount}
-                              />
-                            </div>
-                            <div className="resource-cell resource-cell-share">
-                              <ShareButton
-                                title={`${item.title} • ${guide.title}`}
-                                url={item.url}
-                                text={item.note}
-                              />
-                            </div>
-                            <div className="resource-cell resource-cell-link">
-                              <a
-                                href={item.url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="dashboard-text-link"
+
+                          <div className="resource-badge-row guide-compact-card-badges">
+                            <span className="dashboard-badge">{item.kind}</span>
+                            <span className="dashboard-badge">{item.access}</span>
+                            {item.languages.slice(0, 2).map(language => (
+                              <span
+                                key={language}
+                                className="dashboard-badge dashboard-badge-muted"
                               >
-                                Link
-                                <ArrowUpRight size={15} />
-                              </a>
-                            </div>
+                                {language}
+                              </span>
+                            ))}
+                            {item.languages.length > 2 ? (
+                              <span className="dashboard-badge dashboard-badge-muted">
+                                +{item.languages.length - 2}
+                              </span>
+                            ) : null}
+                          </div>
+
+                          <p className="guide-compact-card-note">{item.note}</p>
+
+                          <div className="guide-compact-card-actions">
+                            <HelpfulVote
+                              voteKey={`${guide.slug}:${item.id}`}
+                              baseCount={item.baseHelpfulCount}
+                            />
+                            <ShareButton
+                              title={`${item.title} • ${guide.title}`}
+                              url={item.url}
+                              text={item.note}
+                            />
+                            <a
+                              href={item.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="dashboard-text-link"
+                            >
+                              Link
+                              <ArrowUpRight size={15} />
+                            </a>
                           </div>
                         </article>
                       );
@@ -746,7 +726,115 @@ export default function GuidePage({ slug }: GuidePageProps) {
                       triggerClassName="dashboard-suggest-trigger-inline"
                     />
                   </div>
-                </div>
+                ) : (
+                  <div className="resource-table">
+                    <div className="resource-table-head">
+                      <span>Sl.No</span>
+                      <span>Resource</span>
+                      <span>Stars</span>
+                      <span>Share</span>
+                      <span>Links</span>
+                    </div>
+
+                    <div className="resource-table-body">
+                      {filteredItems.map((item, index) => {
+                        const showProvider =
+                          !["YouTube", "GitHub"].includes(item.provider) &&
+                          item.provider !== item.kind;
+                        const itemNumber = String(index + 1).padStart(2, "0");
+
+                        return (
+                          <article key={item.id} className="resource-table-row">
+                            <div className="resource-cell resource-cell-index">
+                              {itemNumber}
+                            </div>
+                            <div className="resource-cell resource-cell-main">
+                              <div className="resource-main-line">
+                                <div className="resource-main-head">
+                                  <span className="resource-mobile-index">
+                                    {itemNumber}
+                                  </span>
+                                  <div className="resource-identity">
+                                    <h3 className="resource-title">{item.title}</h3>
+                                    {showProvider ? (
+                                      <p className="resource-provider">
+                                        {item.provider}
+                                      </p>
+                                    ) : null}
+                                  </div>
+                                </div>
+                                <div className="resource-badge-row">
+                                  <span className="dashboard-badge">
+                                    {item.kind}
+                                  </span>
+                                  <span className="dashboard-badge">
+                                    {item.access}
+                                  </span>
+                                  {item.languages.slice(0, 2).map(language => (
+                                    <span
+                                      key={language}
+                                      className="dashboard-badge dashboard-badge-muted"
+                                    >
+                                      {language}
+                                    </span>
+                                  ))}
+                                  {item.languages.length > 2 ? (
+                                    <span className="dashboard-badge dashboard-badge-muted">
+                                      +{item.languages.length - 2}
+                                    </span>
+                                  ) : null}
+                                </div>
+                                <p className="resource-note">{item.note}</p>
+                              </div>
+                            </div>
+                            <div className="resource-actions-row">
+                              <div className="resource-cell resource-cell-stars">
+                                <HelpfulVote
+                                  voteKey={`${guide.slug}:${item.id}`}
+                                  baseCount={item.baseHelpfulCount}
+                                />
+                              </div>
+                              <div className="resource-cell resource-cell-share">
+                                <ShareButton
+                                  title={`${item.title} • ${guide.title}`}
+                                  url={item.url}
+                                  text={item.note}
+                                />
+                              </div>
+                              <div className="resource-cell resource-cell-link">
+                                <a
+                                  href={item.url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="dashboard-text-link"
+                                >
+                                  Link
+                                  <ArrowUpRight size={15} />
+                                </a>
+                              </div>
+                            </div>
+                          </article>
+                        );
+                      })}
+
+                      {filteredItems.length === 0 ? (
+                        <div className="resource-empty-state">
+                          No matching resources for this filter yet.
+                        </div>
+                      ) : null}
+
+                      <SuggestResourceDialog
+                        guideTitle={guide.title}
+                        groupOptions={guide.groups.map(group => ({
+                          id: group.id,
+                          title: group.title,
+                        }))}
+                        initialSectionId={activeGroup.id}
+                        triggerClassName="dashboard-suggest-trigger-inline"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
           </div>

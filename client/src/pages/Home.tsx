@@ -16,6 +16,7 @@ type SearchResult = {
 const homeDescriptionOverrides: Record<string, string> = {
   dsa: "Placements, interviews, and problem solving.",
   "web-development": "Frontend, backend, JavaScript, and project paths.",
+  "coding-resources": "Java, coding foundations, and practice resources.",
   "aptitude-reasoning": "Quant and reasoning for placements and exams.",
   "fresher-jobs": "Internships and entry-level job resources.",
 };

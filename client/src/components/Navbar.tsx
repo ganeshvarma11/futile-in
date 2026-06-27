@@ -14,6 +14,10 @@ export default function Navbar() {
     { href: "/categories", label: "Categories" },
     { href: "/channels", label: "Channels" },
   ];
+  const utilityLinks = [
+    { href: "/about", label: "About" },
+    { href: "/feedback", label: "Feedback" },
+  ];
 
   const isActive = (href: string) => location === href;
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -101,14 +105,19 @@ export default function Navbar() {
               ))}
             </div>
 
-            <Link
-              href="/about"
-              className={`nav-link hidden md:inline-flex ${
-                isActive("/about") ? "nav-link-active" : ""
-              }`}
-            >
-              About
-            </Link>
+            <div className="hidden items-center gap-3 md:flex">
+              {utilityLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`nav-utility-link ${
+                    isActive(link.href) ? "nav-link-active" : ""
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       ) : null}
@@ -164,6 +173,12 @@ export default function Navbar() {
                   className={`nav-link ${isActive("/about") ? "nav-link-active" : ""}`}
                 >
                   About
+                </Link>
+                <Link
+                  href="/feedback"
+                  className={`nav-link ${isActive("/feedback") ? "nav-link-active" : ""}`}
+                >
+                  Feedback
                 </Link>
               </div>
             </div>

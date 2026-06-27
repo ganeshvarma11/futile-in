@@ -15,6 +15,13 @@ export default function Footer() {
               Structured free learning guides for people who are tired of
               searching more than studying.
             </p>
+            <p className="mt-4 text-sm leading-7 text-[var(--muted-foreground)]">
+              Suggest a guide, report a broken link, request a category, or
+              share feedback.
+            </p>
+            <Link href="/feedback" className="mt-4 inline-flex text-sm font-semibold">
+              Open feedback page
+            </Link>
           </div>
 
           <div>
@@ -24,6 +31,7 @@ export default function Footer() {
               <Link href="/categories">Categories</Link>
               <Link href="/channels">Channels</Link>
               <Link href="/about">About</Link>
+              <Link href="/feedback">Feedback</Link>
               <Link href="/privacy">Privacy</Link>
             </div>
           </div>

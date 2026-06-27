@@ -22,6 +22,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/feedback",
+      "destination": "/index.html"
+    },
+    {
       "source": "/guides/:slug*",
       "destination": "/index.html"
     },

@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 import About from "./pages/About";
 import Categories from "./pages/Categories";
 import Channels from "./pages/Channels";
+import Feedback from "./pages/Feedback";
 import GuidePage from "./pages/GuidePage";
 import Home from "./pages/Home";
 import Privacy from "./pages/Privacy";
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/categories" component={Categories} />
       <Route path="/channels" component={Channels} />
+      <Route path="/feedback" component={Feedback} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/guides/:slug">
         {(params) => <GuidePage slug={params.slug} />}

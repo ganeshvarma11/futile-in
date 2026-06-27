@@ -167,7 +167,7 @@ export default function Home() {
             <div className="space-y-3">
               <p className="eyebrow">Curated categories</p>
               <h1 className="home-hero-title">
-                Free learning guides by category.
+                Find the right starting point faster.
               </h1>
               <p className="home-hero-description">
                 Search, browse, and open the right starting point without
@@ -177,7 +177,7 @@ export default function Home() {
             <ShareButton
               title="futile.in"
               url={homeShareUrl}
-              text="Free learning guides by category."
+              text="Find the right starting point faster with futile.in."
               idleLabel="Share page"
               className="home-share-button"
             />

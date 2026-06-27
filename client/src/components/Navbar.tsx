@@ -105,14 +105,12 @@ export default function Navbar() {
               ))}
             </div>
 
-            <div className="hidden items-center gap-3 md:flex">
+            <div className="site-nav-links">
               {utilityLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`nav-utility-link ${
-                    isActive(link.href) ? "nav-link-active" : ""
-                  }`}
+                  className={`nav-link ${isActive(link.href) ? "nav-link-active" : ""}`}
                 >
                   {link.label}
                 </Link>
@@ -159,7 +157,7 @@ export default function Navbar() {
               </form>
 
               <div className="site-nav-mobile-links">
-                {links.map((link) => (
+                {[...links, ...utilityLinks].map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -168,18 +166,6 @@ export default function Navbar() {
                     {link.label}
                   </Link>
                 ))}
-                <Link
-                  href="/about"
-                  className={`nav-link ${isActive("/about") ? "nav-link-active" : ""}`}
-                >
-                  About
-                </Link>
-                <Link
-                  href="/feedback"
-                  className={`nav-link ${isActive("/feedback") ? "nav-link-active" : ""}`}
-                >
-                  Feedback
-                </Link>
               </div>
             </div>
           </div>

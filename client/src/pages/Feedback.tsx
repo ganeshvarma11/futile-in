@@ -16,7 +16,7 @@ const feedbackTypes = [
   },
   {
     title: "Share useful feedback",
-    copy: "Tell us what felt confusing, what helped, or what would make a page easier to use.",
+    copy: "Tell us what felt confusing, what worked, or what would make a page easier to use.",
   },
 ];
 
@@ -33,7 +33,7 @@ export default function Feedback() {
         <section className="info-hero max-w-3xl space-y-5">
           <p className="eyebrow">Feedback</p>
           <h1 className="text-4xl font-semibold tracking-[-0.04em] text-[var(--foreground)] sm:text-5xl">
-            Help improve futile.in.
+            Improve futile.in.
           </h1>
           <p className="text-base leading-8 text-[var(--muted-foreground)] sm:text-lg">
             Suggest a new guide, report a broken link, request a category, or
@@ -62,11 +62,8 @@ export default function Feedback() {
               for quick notes and useful links.
             </p>
             <p className="mt-3">
-              Replace the placeholder `feedbackFormUrl` and `feedbackEmail` in{" "}
-              <span className="font-medium text-[var(--foreground)]">
-                client/src/data/feedback.ts
-              </span>{" "}
-              before launch.
+              The form opens in Google Forms and the email option goes directly
+              to futilein.ops@gmail.com.
             </p>
           </div>
         </section>
@@ -87,7 +84,7 @@ export default function Feedback() {
         <section className="info-card mt-6 card p-7 sm:p-8">
           <div className="max-w-4xl space-y-5">
             <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
-              What helps most
+              What works best
             </h2>
             <div className="space-y-3">
               {feedbackTips.map((item) => (

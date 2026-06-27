@@ -1,7 +1,7 @@
 export const feedbackFormUrl =
-  "https://example.com/replace-with-your-feedback-form";
+  "https://forms.gle/HNTUpps1KbHrqz7TA";
 
-export const feedbackEmail = "feedback@replace-this-domain.example";
+export const feedbackEmail = "futilein.ops@gmail.com";
 
 const feedbackEmailSubject = "Feedback for futile.in";
 

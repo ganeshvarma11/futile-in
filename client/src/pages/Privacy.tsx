@@ -10,7 +10,7 @@ export default function Privacy() {
   const serverSide = [
     "If admin or authenticated areas are used, the server may set a session cookie to keep that session active.",
     "Some backend routes are built for submissions such as resume audits or job postings. If those flows are made public on the site, this policy should be updated alongside them.",
-    "The feedback page currently points to an external form placeholder or your email app, so those submissions do not pass through the futile.in site server unless this setup changes later.",
+    "The feedback page currently points to an external Google Form or your email app, so those submissions do not pass through the futile.in site server unless this setup changes later.",
   ];
 
   return (

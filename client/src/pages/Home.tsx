@@ -22,6 +22,7 @@ const homeDescriptionOverrides: Record<string, string> = {
   javascript: "JavaScript learning, browser basics, Node.js, and interview prep.",
   cpp: "C++ learning, STL, DSA, competitive programming, and interview prep.",
   "sql-dbms": "SQL learning, DBMS basics, practice, and interview prep.",
+  "core-cs-interview-prep": "OS, CN, OOP, and core CS interview revision.",
   "aptitude-reasoning": "Quant and reasoning for placements and exams.",
   "fresher-jobs": "Internships and entry-level job resources.",
 };

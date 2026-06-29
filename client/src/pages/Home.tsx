@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
 import { categories, getGuidesForCategory, guides } from "@/data/site";
+import { toAbsoluteUrl } from "@/seo/siteMetadata";
 import { Link, useLocation } from "wouter";
 
 type SearchResult = {
@@ -144,8 +145,7 @@ export default function Home() {
       ),
     []
   );
-  const homeShareUrl =
-    typeof window === "undefined" ? "/" : window.location.href;
+  const homeShareUrl = toAbsoluteUrl("/");
   const featuredCategories = liveCategories.slice(0, 5);
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -289,16 +289,12 @@ export default function Home() {
                   <h3 className="text-xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
                     {category.name}
                   </h3>
-                  <ShareButton
-                    title={`${category.name} • futile.in`}
-                    url={
-                      typeof window === "undefined"
-                        ? category.href
-                        : `${window.location.origin}${category.href}`
-                    }
-                    text={category.description}
-                    idleLabel="Share"
-                    className="home-category-share-button"
+                    <ShareButton
+                      title={`${category.name} • futile.in`}
+                      url={toAbsoluteUrl(category.href)}
+                      text={category.description}
+                      idleLabel="Share"
+                      className="home-category-share-button"
                   />
                 </div>
 

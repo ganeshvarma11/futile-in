@@ -12,6 +12,7 @@ import SuggestResourceDialog from "@/components/SuggestResourceDialog";
 import { getCategoryBySlug, getGuideBySlug } from "@/data/site";
 import { useIsMobile } from "@/hooks/useMobile";
 import NotFound from "@/pages/NotFound";
+import { toAbsoluteUrl } from "@/seo/siteMetadata";
 import { Link } from "wouter";
 
 type GuidePageProps = {
@@ -33,17 +34,10 @@ export default function GuidePage({ slug }: GuidePageProps) {
   const [sortBy, setSortBy] = useState("Most popular");
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [isMobileGroupsOpen, setIsMobileGroupsOpen] = useState(false);
-  const [prefersCompactGuide, setPrefersCompactGuide] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-    return window.innerWidth < 1180 || (coarsePointer && window.innerWidth < 1400);
-  });
+  const [prefersCompactGuide, setPrefersCompactGuide] = useState(false);
   const isMobile = useIsMobile();
   const isCompactGuide = isMobile || prefersCompactGuide;
-  const guideShareUrl =
-    typeof window === "undefined"
-      ? `/guides/${guide.slug}`
-      : window.location.href;
+  const guideShareUrl = toAbsoluteUrl(`/guides/${guide.slug}`);
 
   useEffect(() => {
     setActiveGroupId(guide.groups[0]?.id ?? "");
@@ -190,6 +184,40 @@ export default function GuidePage({ slug }: GuidePageProps) {
               />
             </div>
           </div>
+
+          <noscript>
+            <section className="page-frame page-frame-compact mt-6">
+              <div className="space-y-8">
+                {guide.groups.map((group) => (
+                  <section key={group.id}>
+                    <h2 className="text-2xl font-semibold text-[var(--foreground)]">
+                      {group.title}
+                    </h2>
+                    <p className="mt-2 text-sm leading-7 text-[var(--muted-foreground)]">
+                      {group.description}
+                    </p>
+                    <ul className="mt-4 space-y-3">
+                      {group.items.map((item) => (
+                        <li key={item.id}>
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-sm font-medium text-[var(--foreground)] underline underline-offset-4"
+                          >
+                            {item.title}
+                          </a>
+                          <p className="mt-1 text-sm leading-6 text-[var(--muted-foreground)]">
+                            {item.note}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+            </section>
+          </noscript>
 
           <div className="guide-page-intro">
             <div className="guide-page-intro-copy">

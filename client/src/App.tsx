@@ -1,7 +1,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Router as WouterRouter, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Layout from "./components/Layout";
 import About from "./pages/About";
@@ -11,8 +11,13 @@ import Feedback from "./pages/Feedback";
 import GuidePage from "./pages/GuidePage";
 import Home from "./pages/Home";
 import Privacy from "./pages/Privacy";
+import { SeoUpdater } from "./seo/SeoUpdater";
 
-function Router() {
+type AppProps = {
+  ssrPath?: string;
+};
+
+function AppRoutes() {
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -30,15 +35,18 @@ function Router() {
   );
 }
 
-function App() {
+function App({ ssrPath }: AppProps) {
   return (
-    <ErrorBoundary>
-      <Layout>
-        <Router />
-        <Analytics />
-        <SpeedInsights />
-      </Layout>
-    </ErrorBoundary>
+    <WouterRouter ssrPath={ssrPath}>
+      <ErrorBoundary>
+        <Layout>
+          <SeoUpdater />
+          <AppRoutes />
+          <Analytics />
+          <SpeedInsights />
+        </Layout>
+      </ErrorBoundary>
+    </WouterRouter>
   );
 }
 

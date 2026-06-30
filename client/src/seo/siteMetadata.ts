@@ -7,6 +7,31 @@ export const DEFAULT_DESCRIPTION =
   "Structured free learning guides that help confused learners decide what to learn and where to start.";
 export const DEFAULT_TITLE = `${SITE_NAME} | Free learning guides for confused beginners`;
 export const DEFAULT_ROBOTS = "index, follow";
+export const DEFAULT_SOCIAL_IMAGE_PATH = "/og/futile-social-preview.png";
+export const DEFAULT_SOCIAL_IMAGE_URL = `${SITE_URL}${DEFAULT_SOCIAL_IMAGE_PATH}`;
+export const DEFAULT_SOCIAL_IMAGE_WIDTH = 1729;
+export const DEFAULT_SOCIAL_IMAGE_HEIGHT = 910;
+export const DEFAULT_SOCIAL_IMAGE_ALT =
+  "futile.in free learning guides preview with curated beginner roadmap cards.";
+export const ORGANIZATION_NAME = "futile.in";
+export const ORGANIZATION_URL = SITE_URL;
+export const ORGANIZATION_LOGO_URL = DEFAULT_SOCIAL_IMAGE_URL;
+
+function createOrganizationSchema(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: ORGANIZATION_NAME,
+    url: ORGANIZATION_URL,
+    logo: ORGANIZATION_LOGO_URL,
+    sameAs: [
+      "https://instagram.com/futile.in",
+      "https://x.com/futilein",
+      "https://whatsapp.com/channel/0029VaxdvXbKwqSXSm2SyH3x",
+      "https://whatsapp.com/channel/0029Vb3ad7eI7BeC37Ccy52S",
+    ],
+  };
+}
 
 export type JsonLd = Record<string, unknown>;
 
@@ -17,6 +42,11 @@ export type RouteMetadata = {
   canonicalUrl: string;
   robots: string;
   ogType: "website" | "article";
+  socialImageUrl: string;
+  socialImageAlt: string;
+  socialImageWidth: number;
+  socialImageHeight: number;
+  twitterCard: "summary" | "summary_large_image";
   schema: JsonLd[];
   statusCode: number;
 };
@@ -53,6 +83,7 @@ const STATIC_ROUTES: StaticRouteDefinition[] = [
           "query-input": "required name=search_term_string",
         },
       },
+      createOrganizationSchema(),
     ],
   },
   {
@@ -247,6 +278,11 @@ function getGuideMetadata(pathname: string): RouteMetadata | null {
     canonicalUrl,
     robots: DEFAULT_ROBOTS,
     ogType: "article",
+    socialImageUrl: DEFAULT_SOCIAL_IMAGE_URL,
+    socialImageAlt: `${guide.title} guide preview on futile.in`,
+    socialImageWidth: DEFAULT_SOCIAL_IMAGE_WIDTH,
+    socialImageHeight: DEFAULT_SOCIAL_IMAGE_HEIGHT,
+    twitterCard: "summary_large_image",
     statusCode: 200,
     schema: [
       createBreadcrumbSchema([
@@ -274,6 +310,15 @@ function getGuideMetadata(pathname: string): RouteMetadata | null {
           "@type": "WebSite",
           name: SITE_NAME,
           url: SITE_URL,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: ORGANIZATION_NAME,
+          url: ORGANIZATION_URL,
+          logo: {
+            "@type": "ImageObject",
+            url: ORGANIZATION_LOGO_URL,
+          },
         },
         mainEntity: {
           "@type": "ItemList",
@@ -310,6 +355,11 @@ function getNotFoundMetadata(pathname: string): RouteMetadata {
     canonicalUrl: toAbsoluteUrl(pathname === "/404" ? "/404" : pathname),
     robots: "noindex, follow",
     ogType: "website",
+    socialImageUrl: DEFAULT_SOCIAL_IMAGE_URL,
+    socialImageAlt: DEFAULT_SOCIAL_IMAGE_ALT,
+    socialImageWidth: DEFAULT_SOCIAL_IMAGE_WIDTH,
+    socialImageHeight: DEFAULT_SOCIAL_IMAGE_HEIGHT,
+    twitterCard: "summary_large_image",
     statusCode: 404,
     schema: [
       {
@@ -340,6 +390,14 @@ export function getRouteMetadata(pathname: string): RouteMetadata {
       canonicalUrl: toAbsoluteUrl(normalizedPath),
       robots: DEFAULT_ROBOTS,
       ogType: "website",
+      socialImageUrl: DEFAULT_SOCIAL_IMAGE_URL,
+      socialImageAlt:
+        normalizedPath === "/"
+          ? DEFAULT_SOCIAL_IMAGE_ALT
+          : `${staticRoute.title} preview on futile.in`,
+      socialImageWidth: DEFAULT_SOCIAL_IMAGE_WIDTH,
+      socialImageHeight: DEFAULT_SOCIAL_IMAGE_HEIGHT,
+      twitterCard: "summary_large_image",
       statusCode: 200,
       schema:
         normalizedPath === "/"

@@ -61,13 +61,38 @@ export function SeoUpdater() {
       metadata.description
     );
     upsertMeta('meta[property="og:url"]', "content", metadata.canonicalUrl);
+    upsertMeta(
+      'meta[property="og:image"]',
+      "content",
+      metadata.socialImageUrl
+    );
+    upsertMeta(
+      'meta[property="og:image:width"]',
+      "content",
+      String(metadata.socialImageWidth)
+    );
+    upsertMeta(
+      'meta[property="og:image:height"]',
+      "content",
+      String(metadata.socialImageHeight)
+    );
+    upsertMeta(
+      'meta[property="og:image:alt"]',
+      "content",
+      metadata.socialImageAlt
+    );
     upsertMeta('meta[property="og:locale"]', "content", "en_IN");
-    upsertMeta('meta[name="twitter:card"]', "content", "summary");
+    upsertMeta('meta[name="twitter:card"]', "content", metadata.twitterCard);
     upsertMeta('meta[name="twitter:title"]', "content", metadata.title);
     upsertMeta(
       'meta[name="twitter:description"]',
       "content",
       metadata.description
+    );
+    upsertMeta(
+      'meta[name="twitter:image"]',
+      "content",
+      metadata.socialImageUrl
     );
     upsertLink('link[rel="canonical"]', "canonical", metadata.canonicalUrl);
     updateSchemaScripts(renderHeadMarkup(metadata));

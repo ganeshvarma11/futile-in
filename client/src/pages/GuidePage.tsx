@@ -5,7 +5,7 @@ import {
   Search,
   SlidersHorizontal,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import HelpfulVote from "@/components/HelpfulVote";
 import ShareButton from "@/components/ShareButton";
 import SuggestResourceDialog from "@/components/SuggestResourceDialog";
@@ -35,9 +35,55 @@ export default function GuidePage({ slug }: GuidePageProps) {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [isMobileGroupsOpen, setIsMobileGroupsOpen] = useState(false);
   const [prefersCompactGuide, setPrefersCompactGuide] = useState(false);
+  const resourceSectionRef = useRef<HTMLElement | null>(null);
   const isMobile = useIsMobile();
   const isCompactGuide = isMobile || prefersCompactGuide;
   const guideShareUrl = toAbsoluteUrl(`/guides/${guide.slug}`);
+
+  const scrollResourcesToTop = () => {
+    const resourceSection = resourceSectionRef.current;
+    if (!resourceSection) return;
+
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    const navHeight =
+      document.querySelector(".site-nav")?.getBoundingClientRect().height ?? 0;
+    const nextTop =
+      resourceSection.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+
+    root.style.scrollBehavior = "auto";
+    window.scrollTo({ top: Math.max(nextTop, 0), left: 0 });
+    root.style.scrollBehavior = previousScrollBehavior;
+  };
+
+  const handleGroupSelect = (groupId: string, closeGroupPicker = false) => {
+    setActiveGroupId(groupId);
+
+    if (closeGroupPicker) {
+      setIsMobileGroupsOpen(false);
+    }
+
+    window.requestAnimationFrame(() => {
+      scrollResourcesToTop();
+    });
+  };
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+
+    root.style.scrollBehavior = "auto";
+
+    const frameId = window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0 });
+      root.style.scrollBehavior = previousScrollBehavior;
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      root.style.scrollBehavior = previousScrollBehavior;
+    };
+  }, [slug]);
 
   useEffect(() => {
     setActiveGroupId(guide.groups[0]?.id ?? "");
@@ -287,7 +333,7 @@ export default function GuidePage({ slug }: GuidePageProps) {
                         <button
                           key={group.id}
                           type="button"
-                          onClick={() => setActiveGroupId(group.id)}
+                          onClick={() => handleGroupSelect(group.id)}
                           className={`dashboard-mobile-section-chip ${
                             group.id === activeGroup.id
                               ? "dashboard-mobile-section-chip-active"
@@ -315,10 +361,7 @@ export default function GuidePage({ slug }: GuidePageProps) {
                       <button
                         key={group.id}
                         type="button"
-                        onClick={() => {
-                          setActiveGroupId(group.id);
-                          setIsMobileGroupsOpen(false);
-                        }}
+                        onClick={() => handleGroupSelect(group.id, true)}
                         className={`dashboard-mobile-group-chip ${
                           group.id === activeGroup.id
                             ? "dashboard-mobile-group-chip-active"
@@ -341,7 +384,7 @@ export default function GuidePage({ slug }: GuidePageProps) {
                     <button
                       key={group.id}
                       type="button"
-                      onClick={() => setActiveGroupId(group.id)}
+                      onClick={() => handleGroupSelect(group.id)}
                       className={`sidebar-item ${
                         group.id === activeGroup.id ? "sidebar-item-active" : ""
                       }`}
@@ -383,7 +426,7 @@ export default function GuidePage({ slug }: GuidePageProps) {
               </div>
             </aside>
 
-            <section className="dashboard-main">
+            <section ref={resourceSectionRef} className="dashboard-main">
               <div className="dashboard-panel">
                 <div className="dashboard-main-header">
                   <div>

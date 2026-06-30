@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import NotFound from "@/pages/NotFound";
 import { Route, Router as WouterRouter, Switch } from "wouter";
+import { GaPageTracker } from "./analytics/GaPageTracker";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Layout from "./components/Layout";
 import About from "./pages/About";
@@ -41,6 +42,7 @@ function App({ ssrPath }: AppProps) {
       <ErrorBoundary>
         <Layout>
           <SeoUpdater />
+          <GaPageTracker />
           <AppRoutes />
           <Analytics />
           <SpeedInsights />

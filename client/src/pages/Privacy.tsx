@@ -1,4 +1,4 @@
-const LAST_UPDATED = "June 11, 2026";
+const LAST_UPDATED = "June 30, 2026";
 
 export default function Privacy() {
   const localOnly = [
@@ -65,14 +65,21 @@ export default function Privacy() {
               Analytics and third parties
             </h2>
             <p className="text-base leading-8 text-[var(--muted-foreground)]">
-              The current client does not include third-party ad trackers or
-              analytics scripts. If that changes later, this page should name
-              what is added and why.
+              futile.in uses Google Analytics 4 to understand high-level usage
+              such as page views, traffic sources, and on-site engagement. It
+              is used to improve the guides and site experience, not for ad
+              personalization.
             </p>
             <p className="text-base leading-8 text-[var(--muted-foreground)]">
               Many guide links go to external websites like YouTube, official
               docs, books, or job boards. Once you leave futile.in, those sites
               follow their own privacy practices.
+            </p>
+            <p className="text-base leading-8 text-[var(--muted-foreground)]">
+              Google may set its own cookies or similar identifiers for
+              analytics measurement depending on your browser and consent
+              settings. If a consent banner is added later, this page should be
+              updated alongside it.
             </p>
           </div>
 

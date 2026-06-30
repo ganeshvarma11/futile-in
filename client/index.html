@@ -6,6 +6,29 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="module">
+      window.__GA_MEASUREMENT_ID__ =
+        import.meta.env.VITE_GA_MEASUREMENT_ID?.trim() || "";
+
+      if (window.__GA_MEASUREMENT_ID__) {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag() {
+          window.dataLayer.push(arguments);
+        };
+
+        window.gtag("js", new Date());
+        window.gtag("config", window.__GA_MEASUREMENT_ID__, {
+          send_page_view: false,
+        });
+
+        const gaScript = document.createElement("script");
+        gaScript.async = true;
+        gaScript.src =
+          "https://www.googletagmanager.com/gtag/js?id=" +
+          encodeURIComponent(window.__GA_MEASUREMENT_ID__);
+        document.head.appendChild(gaScript);
+      }
+    </script>
     <!--seo:start--><!--seo:end-->
   </head>
   <body>

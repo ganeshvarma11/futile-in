@@ -1,11 +1,14 @@
 import { categories, getCategoryBySlug, getGuideBySlug, guides } from "@/data/site";
 
-export const SITE_NAME = "futile.in";
+export const BRAND_NAME = "futile";
+export const SITE_NAME = BRAND_NAME;
+export const SITE_DOMAIN_LABEL = "futile.in";
+export const SITE_ALTERNATE_NAMES = [SITE_DOMAIN_LABEL];
 export const SITE_URL = "https://www.futile.in";
 export const DEFAULT_THEME_COLOR = "#f6f3ed";
 export const DEFAULT_DESCRIPTION =
-  "Structured free learning guides that help confused learners decide what to learn and where to start.";
-export const DEFAULT_TITLE = `${SITE_NAME} | Free learning guides for confused beginners`;
+  "futile is a structured free learning guide site that helps confused learners decide what to learn and where to start.";
+export const DEFAULT_TITLE = `${BRAND_NAME} | Free learning guides for confused beginners`;
 export const DEFAULT_ROBOTS = "index, follow";
 export const DEFAULT_SOCIAL_IMAGE_PATH = "/og/futile-social-preview.png";
 export const DEFAULT_SOCIAL_IMAGE_URL = `${SITE_URL}${DEFAULT_SOCIAL_IMAGE_PATH}`;
@@ -13,15 +16,16 @@ export const DEFAULT_SOCIAL_IMAGE_WIDTH = 1729;
 export const DEFAULT_SOCIAL_IMAGE_HEIGHT = 910;
 export const DEFAULT_SOCIAL_IMAGE_ALT =
   "futile.in free learning guides preview with curated beginner roadmap cards.";
-export const ORGANIZATION_NAME = "futile.in";
+export const ORGANIZATION_NAME = BRAND_NAME;
 export const ORGANIZATION_URL = SITE_URL;
-export const ORGANIZATION_LOGO_URL = DEFAULT_SOCIAL_IMAGE_URL;
+export const ORGANIZATION_LOGO_URL = `${SITE_URL}/favicon-512x512.png`;
 
 function createOrganizationSchema(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: ORGANIZATION_NAME,
+    alternateName: SITE_ALTERNATE_NAMES,
     url: ORGANIZATION_URL,
     logo: ORGANIZATION_LOGO_URL,
     sameAs: [
@@ -74,6 +78,7 @@ const STATIC_ROUTES: StaticRouteDefinition[] = [
         "@context": "https://schema.org",
         "@type": "WebSite",
         name: SITE_NAME,
+        alternateName: SITE_ALTERNATE_NAMES,
         url: SITE_URL,
         description: DEFAULT_DESCRIPTION,
         inLanguage: "en-IN",
@@ -81,6 +86,50 @@ const STATIC_ROUTES: StaticRouteDefinition[] = [
           "@type": "SearchAction",
           target: `${SITE_URL}/categories?q={search_term_string}`,
           "query-input": "required name=search_term_string",
+        },
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: `${BRAND_NAME} homepage`,
+        url: SITE_URL,
+        description: DEFAULT_DESCRIPTION,
+        inLanguage: "en-IN",
+        isPartOf: {
+          "@type": "WebSite",
+          name: SITE_NAME,
+          alternateName: SITE_ALTERNATE_NAMES,
+          url: SITE_URL,
+        },
+        about: {
+          "@type": "Thing",
+          name: "Curated beginner learning guides",
+        },
+        mainEntity: {
+          "@type": "ItemList",
+          name: "Guide categories",
+          numberOfItems: categories.length,
+          itemListElement: categories.map((category, index) => {
+            const guide = guides.find((entry) => entry.categorySlug === category.slug);
+            return {
+              "@type": "ListItem",
+              position: index + 1,
+              name: category.name,
+              url: guide
+                ? `${SITE_URL}/guides/${guide.slug}`
+                : `${SITE_URL}/categories`,
+            };
+          }),
+        },
+        publisher: {
+          "@type": "Organization",
+          name: ORGANIZATION_NAME,
+          alternateName: SITE_ALTERNATE_NAMES,
+          url: ORGANIZATION_URL,
+          logo: {
+            "@type": "ImageObject",
+            url: ORGANIZATION_LOGO_URL,
+          },
         },
       },
       createOrganizationSchema(),
@@ -91,14 +140,14 @@ const STATIC_ROUTES: StaticRouteDefinition[] = [
     changefreq: "monthly",
     priority: "0.6",
     sourceKey: "client/src/pages/About.tsx",
-    title: `About ${SITE_NAME} | Why the guides are curated this way`,
+    title: `About ${BRAND_NAME} | Why the guides are curated this way`,
     description:
       "Learn how futile.in curates beginner-friendly learning guides, reduces noise, and helps people choose better starting points.",
     schema: [
       {
         "@context": "https://schema.org",
         "@type": "AboutPage",
-        name: `About ${SITE_NAME}`,
+        name: `About ${BRAND_NAME}`,
         url: `${SITE_URL}/about`,
         description:
           "How futile.in curates focused learning guides for confused beginners.",
@@ -110,7 +159,7 @@ const STATIC_ROUTES: StaticRouteDefinition[] = [
     changefreq: "weekly",
     priority: "0.9",
     sourceKey: "client/src/pages/Categories.tsx",
-    title: `Guide Categories | ${SITE_NAME}`,
+    title: `Guide Categories | ${BRAND_NAME}`,
     description:
       "Browse live learning guide categories for DSA, web development, fresher jobs, aptitude, Java, Python, SQL, and more.",
     schema: [
@@ -144,7 +193,7 @@ const STATIC_ROUTES: StaticRouteDefinition[] = [
     changefreq: "monthly",
     priority: "0.5",
     sourceKey: "client/src/pages/Channels.tsx",
-    title: `Channels and Updates | ${SITE_NAME}`,
+    title: `Channels and Updates | ${BRAND_NAME}`,
     description:
       "Follow the futile.in update channels for fresher jobs, curated resources, and project updates beyond the website.",
     schema: [
@@ -163,7 +212,7 @@ const STATIC_ROUTES: StaticRouteDefinition[] = [
     changefreq: "monthly",
     priority: "0.4",
     sourceKey: "client/src/pages/Feedback.tsx",
-    title: `Feedback and Guide Requests | ${SITE_NAME}`,
+    title: `Feedback and Guide Requests | ${BRAND_NAME}`,
     description:
       "Suggest a new guide, report a broken link, request a category, or share feedback for futile.in.",
     schema: [
@@ -182,7 +231,7 @@ const STATIC_ROUTES: StaticRouteDefinition[] = [
     changefreq: "monthly",
     priority: "0.3",
     sourceKey: "client/src/pages/Privacy.tsx",
-    title: `Privacy Policy | ${SITE_NAME}`,
+    title: `Privacy Policy | ${BRAND_NAME}`,
     description:
       "Read the futile.in privacy policy in plain language, including what stays in your browser and what may involve the server.",
     schema: [
@@ -262,7 +311,7 @@ function getGuideMetadata(pathname: string): RouteMetadata | null {
 
   const category = getCategoryBySlug(guide.categorySlug);
   const canonicalUrl = toAbsoluteUrl(pathname);
-  const title = `${guide.title} for beginners | ${SITE_NAME}`;
+  const title = `${guide.title} for beginners | ${BRAND_NAME}`;
   const description = limitDescription(
     `${guide.summary} For ${guide.forWho.toLowerCase()}`
   );
@@ -309,6 +358,7 @@ function getGuideMetadata(pathname: string): RouteMetadata | null {
         isPartOf: {
           "@type": "WebSite",
           name: SITE_NAME,
+          alternateName: SITE_ALTERNATE_NAMES,
           url: SITE_URL,
         },
         publisher: {
@@ -349,7 +399,7 @@ function getGuideMetadata(pathname: string): RouteMetadata | null {
 function getNotFoundMetadata(pathname: string): RouteMetadata {
   return {
     path: pathname,
-    title: `Page not found | ${SITE_NAME}`,
+    title: `Page not found | ${BRAND_NAME}`,
     description:
       "The page you requested could not be found on futile.in.",
     canonicalUrl: toAbsoluteUrl(pathname === "/404" ? "/404" : pathname),

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { renderHeadMarkup } from "./head";
-import { getRouteMetadata, normalizePath } from "./siteMetadata";
+import { SITE_NAME, getRouteMetadata, normalizePath } from "./siteMetadata";
 
 function upsertMeta(selector: string, attributeName: string, value: string) {
   let element = document.head.querySelector<HTMLMetaElement>(selector);
@@ -53,7 +53,7 @@ export function SeoUpdater() {
     upsertMeta('meta[name="description"]', "content", metadata.description);
     upsertMeta('meta[name="robots"]', "content", metadata.robots);
     upsertMeta('meta[property="og:type"]', "content", metadata.ogType);
-    upsertMeta('meta[property="og:site_name"]', "content", "futile.in");
+    upsertMeta('meta[property="og:site_name"]', "content", SITE_NAME);
     upsertMeta('meta[property="og:title"]', "content", metadata.title);
     upsertMeta(
       'meta[property="og:description"]',
@@ -94,6 +94,8 @@ export function SeoUpdater() {
       "content",
       metadata.socialImageUrl
     );
+    upsertMeta('meta[name="application-name"]', "content", SITE_NAME);
+    upsertMeta('meta[name="apple-mobile-web-app-title"]', "content", SITE_NAME);
     upsertLink('link[rel="canonical"]', "canonical", metadata.canonicalUrl);
     updateSchemaScripts(renderHeadMarkup(metadata));
   }, [location]);

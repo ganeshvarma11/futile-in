@@ -167,17 +167,18 @@ export default function Home() {
             <div className="space-y-3">
               <p className="eyebrow">Curated categories</p>
               <h1 className="home-hero-title">
-                Find the right starting point faster.
+                Find the right starting point faster with futile.
               </h1>
               <p className="home-hero-description">
-                Search, browse, and open the right starting point without
-                digging through dozens of tabs first.
+                futile is a curated guide site for confused learners. Search,
+                browse, and open the right starting point without digging
+                through dozens of tabs first.
               </p>
             </div>
             <ShareButton
-              title="futile.in"
+              title="futile"
               url={homeShareUrl}
-              text="Find the right starting point faster with futile.in."
+              text="Find the right starting point faster with futile."
               idleLabel="Share page"
               className="home-share-button"
             />
